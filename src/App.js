@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Build Week Scaffold</h1>
+        <h1>Donor Management</h1>
       </div>
     );
   }
