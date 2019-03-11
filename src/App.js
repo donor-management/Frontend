@@ -6,6 +6,7 @@ import MainNav from './components/MainNav';
 import HomePage from './components/HomePage';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
+import DashboardPage from './components/DashboardPage';
 import Logout from './components/Logout';
 import NotFound from './components/NotFound';
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
+            <Route path="/dashboard" component={DashboardPage} />
             <Route path="/" component={HomePage} />
             <Route component={NotFound} />
           </Switch>
