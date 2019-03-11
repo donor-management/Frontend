@@ -1,7 +1,7 @@
 import React from 'react';
 
 const RegisterForm = props => {
-  return <main>Register form</main>;
+  return <h1>Register form</h1>;
 };
 
 export default RegisterForm;

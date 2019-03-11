@@ -4,28 +4,40 @@ import { Link, NavLink } from 'react-router-dom';
 const MainNav = ({ user }) => {
   return (
     <nav>
-      <Link to="/">Home</Link>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
 
-      {!user && (
-        <>
-          <NavLink className="" to="/login">
-            Login
-          </NavLink>
-          <NavLink className="" to="/register">
-            Register
-          </NavLink>
-        </>
-      )}
-      {user && (
-        <>
-          <NavLink className="" to="/profile">
-            {user.name}
-          </NavLink>
-          <NavLink className="" to="/logout">
-            Logout
-          </NavLink>
-        </>
-      )}
+        {!user && (
+          <>
+            <li>
+              <NavLink className="" to="/login">
+                Login
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="" to="/register">
+                Register
+              </NavLink>
+            </li>
+          </>
+        )}
+        {user && (
+          <>
+            <li>
+              {/* <NavLink className="" to="/profile"> */}
+              {/* {user.name} */}
+              {/* </NavLink> */}
+            </li>
+            <li>
+              <NavLink className="" to="/logout">
+                Logout
+              </NavLink>
+            </li>
+          </>
+        )}
+      </ul>
     </nav>
   );
 };
