@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import auth from '../services/authService';
+import Input from './common/Input';
+import Button from './common/Button';
 
 const LoginForm = ({ location, history }) => {
   const [credentials, setCredentials] = useState({});
@@ -25,21 +27,23 @@ const LoginForm = ({ location, history }) => {
     <div className="login">
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
-        <input
+        <Input
           type="text"
           name="username"
           value={credentials.username || ''}
           onChange={handleChange}
           placeholder="Username"
+          label="Username"
         />
-        <input
+        <Input
           type="password"
           name="password"
+          label="Password"
           value={credentials.password || ''}
           onChange={handleChange}
           placeholder="Password"
         />
-        <button>Log in</button>
+        <Button>Log in</Button>
       </form>
     </div>
   );
