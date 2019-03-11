@@ -4,13 +4,14 @@ import styled from 'styled-components';
 
 const StyledNav = styled.nav`
   background: #eee;
+  padding: 1rem 1.5rem;
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Lato';
   }
   ul {
-    padding: 1rem;
+    padding: 0;
     margin: 0;
     display: flex;
     align-items: center;
