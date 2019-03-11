@@ -28,7 +28,6 @@ const LoginForm = ({ location, history }) => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <Input
-          type="text"
           name="username"
           value={credentials.username || ''}
           onChange={handleChange}
