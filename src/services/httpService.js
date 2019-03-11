@@ -13,7 +13,7 @@ axios.interceptors.response.use(null, error => {
 });
 
 function setToken(token) {
-  axios.defaults.headers.common['x-auth-token'] = token;
+  axios.defaults.headers.common['Authorization'] = token;
 }
 
 export default {
