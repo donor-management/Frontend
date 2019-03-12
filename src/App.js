@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import auth from './services/authService';
+import { AuthProvider } from './store/AuthContext';
 import MainNav from './components/MainNav';
 import HomePage from './components/HomePage';
 import RegisterForm from './components/RegisterForm';
@@ -16,24 +16,24 @@ const StyledMain = styled.main`
 `;
 
 const App = () => {
-  const user = auth.getCurrentUser();
-  console.log(user);
   return (
-    <Router>
-      <>
-        <MainNav user={user} />
-        <StyledMain>
-          <Switch>
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/logout" component={Logout} />
-            <ProtectedRoute path="/dashboard" component={DashboardPage} />
-            <Route path="/" component={HomePage} />
-            <Route component={NotFound} />
-          </Switch>
-        </StyledMain>
-      </>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <>
+          <MainNav />
+          <StyledMain>
+            <Switch>
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/logout" component={Logout} />
+              <ProtectedRoute path="/dashboard" component={DashboardPage} />
+              <Route path="/" component={HomePage} />
+              <Route component={NotFound} />
+            </Switch>
+          </StyledMain>
+        </>
+      </Router>
+    </AuthProvider>
   );
 };
 
