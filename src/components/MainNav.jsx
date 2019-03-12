@@ -13,8 +13,9 @@ const StyledNav = styled.nav`
     font-family: 'Lato';
   }
   .user {
-    font-size: 80%;
+    font-size: 75%;
     font-weight: bold;
+    margin-right: 2rem;
   }
   .active {
     font-weight: bold;
