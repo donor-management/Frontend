@@ -14,7 +14,7 @@ const LoginForm = ({ location, history }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await auth.login(credentials);
+      await auth.login(credentials.username, credentials.password);
       const { state } = location;
       const destination = state ? state.from.pathname : '/';
       history.replace(destination);
