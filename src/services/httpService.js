@@ -6,7 +6,7 @@ axios.interceptors.response.use(null, error => {
 
   if (!expectedError) {
     // log error and notify user
-    console.log(error);
+    console.dir(error);
   }
 
   return Promise.reject(error);
