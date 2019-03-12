@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import auth from '../../services/authService';
+import { AuthContext } from '../../store/AuthContext';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const { user } = useContext(AuthContext);
+
   return (
     <Route
       {...rest}
       render={props => {
-        if (auth.getCurrentUser()) return <Component {...props} />;
+        if (user) return <Component {...props} />;
 
         return (
           <Redirect
