@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthContext } from '../store/AuthContext';
+import capitalize from '../helpers/capitalize';
 
 const StyledNav = styled.nav`
-  background: #eee;
+  background: #4acaa8;
   padding: 1rem 1.5rem;
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Lato';
+  }
+  .user {
+    font-size: 80%;
+    font-weight: bold;
   }
   .active {
     font-weight: bold;
@@ -18,6 +24,7 @@ const StyledNav = styled.nav`
     margin: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   li {
     list-style: none;
@@ -27,12 +34,17 @@ const StyledNav = styled.nav`
     padding: 0.25rem;
     border: none;
   }
+  a:hover {
+    color: white;
+  }
   li:last-child {
     margin-right: 0;
   }
 `;
 
-const MainNav = ({ user }) => {
+const MainNav = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <StyledNav>
       <ul>
@@ -46,14 +58,10 @@ const MainNav = ({ user }) => {
           </li>
         )}
         {user && (
-          <>
-            <li>
-              <NavLink to="/dashboard">{user.name} Dash</NavLink>
-            </li>
-            <li>
-              <NavLink to="/logout">Logout</NavLink>
-            </li>
-          </>
+          <li>
+            <span className="user">Welcome, {capitalize(user.username)}</span>{' '}
+            <NavLink to="/logout">Logout</NavLink>
+          </li>
         )}
       </ul>
     </StyledNav>

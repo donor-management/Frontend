@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import auth from '../services/authService';
+import React, { useState, useContext } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { AuthContext } from '../store/AuthContext';
 import Input from './common/Input';
 import Button from './common/Button';
 
 const LoginForm = ({ location, history }) => {
   const [credentials, setCredentials] = useState({});
+  const auth = useContext(AuthContext);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -14,18 +15,16 @@ const LoginForm = ({ location, history }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    try {
-      await auth.login(credentials.username, credentials.password);
-      const { state } = location;
-      const destination = state ? state.from.pathname : '/';
-      history.replace(destination);
-    } catch (ex) {
-      console.log(ex);
-    }
+    await auth.login(credentials.username, credentials.password);
+    const { state } = location;
+    const destination = state ? state.from.pathname : '/dashboard';
+    history.replace(destination);
   };
 
+  if (auth.user) return <Redirect to="/dashboard" />;
+
   return (
-    <div className="login">
+    <section className="login">
       <h1>Log in</h1>
       <p>
         New user? <Link to="/register">Create an account</Link>
@@ -49,7 +48,7 @@ const LoginForm = ({ location, history }) => {
         />
         <Button>Log in</Button>
       </form>
-    </div>
+    </section>
   );
 };
 

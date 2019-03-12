@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { register } from '../services/userService';
+import { AuthContext } from '../store/AuthContext';
 import Input from './common/Input';
 import Button from './common/Button';
 
 const RegisterForm = ({ location, history }) => {
   const [newUser, setNewUser] = useState({});
+  const auth = useContext(AuthContext);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -14,9 +16,8 @@ const RegisterForm = ({ location, history }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await register(newUser);
-      // const res = await register(newUser);
-      // auth.loginWithToken(res.token)
+      const { data } = await register(newUser);
+      auth.loginWithToken(data.token);
       history.replace('/dashboard');
     } catch (ex) {
       console.log(ex);
@@ -24,7 +25,7 @@ const RegisterForm = ({ location, history }) => {
   };
 
   return (
-    <div className="login">
+    <section className="registration">
       <h1>Create an account</h1>
       <form onSubmit={handleSubmit}>
         <Input
@@ -59,7 +60,7 @@ const RegisterForm = ({ location, history }) => {
         />
         <Button>Sign up</Button>
       </form>
-    </div>
+    </section>
   );
 };
 
