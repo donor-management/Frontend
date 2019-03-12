@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../store/AuthContext';
+import capitalize from '../helpers/capitalize';
+import DashNav from './DashNav';
 
 const DashboardPage = () => {
-  return <h1>Dashboard</h1>;
+  const { user } = useContext(AuthContext);
+  const name = capitalize(user.username);
+
+  return (
+    <>
+      <DashNav />
+      <section>
+        <h1>Welcome, {name}</h1>
+      </section>
+    </>
+  );
 };
 
 export default DashboardPage;
