@@ -10,6 +10,9 @@ const StyledNav = styled.nav`
     font-weight: bold;
     font-family: 'Lato';
   }
+  .active {
+    font-weight: bold;
+  }
   ul {
     padding: 0;
     margin: 0;
@@ -22,6 +25,7 @@ const StyledNav = styled.nav`
   }
   a {
     padding: 0.25rem;
+    border: none;
   }
   li:last-child {
     margin-right: 0;
@@ -37,30 +41,17 @@ const MainNav = ({ user }) => {
         </li>
 
         {!user && (
-          <>
-            <li>
-              <NavLink className="" to="/login">
-                Login
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="" to="/register">
-                Register
-              </NavLink>
-            </li>
-          </>
+          <li>
+            <NavLink to="/login">Log in</NavLink>
+          </li>
         )}
         {user && (
           <>
             <li>
-              <NavLink className="" to="/dashboard">
-                {user.name} Dash
-              </NavLink>
+              <NavLink to="/dashboard">{user.name} Dash</NavLink>
             </li>
             <li>
-              <NavLink className="" to="/logout">
-                Logout
-              </NavLink>
+              <NavLink to="/logout">Logout</NavLink>
             </li>
           </>
         )}
