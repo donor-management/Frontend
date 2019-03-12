@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthContext } from '../store/AuthContext';
+import capitalize from '../helpers/capitalize';
 
 const StyledNav = styled.nav`
   background: #4acaa8;
@@ -11,6 +12,10 @@ const StyledNav = styled.nav`
     font-weight: bold;
     font-family: 'Lato';
   }
+  .user {
+    font-size: 80%;
+    font-weight: bold;
+  }
   .active {
     font-weight: bold;
   }
@@ -19,6 +24,7 @@ const StyledNav = styled.nav`
     margin: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   li {
     list-style: none;
@@ -52,14 +58,10 @@ const MainNav = () => {
           </li>
         )}
         {user && (
-          <>
-            <li>
-              <NavLink to="/dashboard">{user.name} Dash</NavLink>
-            </li>
-            <li>
-              <NavLink to="/logout">Logout</NavLink>
-            </li>
-          </>
+          <li>
+            <span className="user">Welcome, {capitalize(user.username)}</span>{' '}
+            <NavLink to="/logout">Logout</NavLink>
+          </li>
         )}
       </ul>
     </StyledNav>
