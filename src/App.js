@@ -12,7 +12,7 @@ import Logout from './components/Logout';
 import NotFound from './components/NotFound';
 
 const StyledMain = styled.main`
-  padding: 0 1.5rem;
+  /* padding: 0 1.5rem; */
 `;
 
 const App = () => {
