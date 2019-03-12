@@ -14,8 +14,9 @@ const RegisterForm = ({ location, history }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await register(newUser);
-      // auth.loginWithToken
+      await register(newUser);
+      // const res = await register(newUser);
+      // auth.loginWithToken(res.token)
       history.replace('/dashboard');
     } catch (ex) {
       console.log(ex);
