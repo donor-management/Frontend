@@ -12,6 +12,11 @@ const DashboardPage = () => {
       <DashNav />
       <section>
         <h1>Welcome, {name}</h1>
+        [$$] raised in the last 30 days
+        <p>Donors last contacted more than 60 days ago</p>
+        [table of donors]
+        <p>Active campaigns</p>
+        [table of campaigns]
       </section>
     </>
   );
