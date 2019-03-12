@@ -7,6 +7,7 @@ import HomePage from './components/HomePage';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import DashboardPage from './components/DashboardPage';
+import ProtectedRoute from './components/common/ProtectedRoute';
 import Logout from './components/Logout';
 import NotFound from './components/NotFound';
 
@@ -16,21 +17,22 @@ const StyledMain = styled.main`
 
 const App = () => {
   const user = auth.getCurrentUser();
+  console.log(user);
   return (
     <Router>
-      <div className="App">
+      <>
         <MainNav user={user} />
         <StyledMain>
           <Switch>
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
-            <Route path="/dashboard" component={DashboardPage} />
+            <ProtectedRoute path="/dashboard" component={DashboardPage} />
             <Route path="/" component={HomePage} />
             <Route component={NotFound} />
           </Switch>
         </StyledMain>
-      </div>
+      </>
     </Router>
   );
 };
