@@ -12,8 +12,8 @@ export async function login(username, password) {
   localStorage.setItem(tokenKey, data.token);
 }
 
-export function loginWithToken(jwt) {
-  localStorage.setItem(tokenKey, jwt);
+export function loginWithToken(token) {
+  localStorage.setItem(tokenKey, token);
 }
 
 export function logout() {
@@ -22,8 +22,8 @@ export function logout() {
 
 export function getCurrentUser() {
   try {
-    const jwt = localStorage.getItem(tokenKey);
-    return jwtDecode(jwt);
+    const token = localStorage.getItem(tokenKey);
+    return jwtDecode(token);
   } catch (ex) {
     return null;
   }
