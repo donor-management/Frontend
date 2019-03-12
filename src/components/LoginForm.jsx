@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import auth from '../services/authService';
+import Input from './common/Input';
+import Button from './common/Button';
 
 const LoginForm = ({ location, history }) => {
   const [credentials, setCredentials] = useState({});
@@ -12,7 +15,7 @@ const LoginForm = ({ location, history }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await auth.login(credentials);
+      await auth.login(credentials.username, credentials.password);
       const { state } = location;
       const destination = state ? state.from.pathname : '/';
       history.replace(destination);
@@ -23,23 +26,28 @@ const LoginForm = ({ location, history }) => {
 
   return (
     <div className="login">
-      <h1>Login</h1>
+      <h1>Log in</h1>
+      <p>
+        New user? <Link to="/register">Create an account</Link>
+      </p>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <Input
           name="username"
           value={credentials.username || ''}
           onChange={handleChange}
           placeholder="Username"
+          label="Username"
+          autoFocus
         />
-        <input
+        <Input
           type="password"
           name="password"
+          label="Password"
           value={credentials.password || ''}
           onChange={handleChange}
           placeholder="Password"
         />
-        <button>Log in</button>
+        <Button>Log in</Button>
       </form>
     </div>
   );
