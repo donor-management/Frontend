@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import auth from '../services/authService';
+import { register } from '../services/userService';
 import Input from './common/Input';
 import Button from './common/Button';
 
@@ -14,7 +14,8 @@ const RegisterForm = ({ location, history }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await auth.register(newUser);
+      const res = await register(newUser);
+      // auth.loginWithToken
       history.replace('/dashboard');
     } catch (ex) {
       console.log(ex);
