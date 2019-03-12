@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthContext } from '../store/AuthContext';
 
 const StyledNav = styled.nav`
-  background: #eee;
+  background: #4acaa8;
   padding: 1rem 1.5rem;
   .logo {
     font-size: 1.5rem;
@@ -27,12 +28,17 @@ const StyledNav = styled.nav`
     padding: 0.25rem;
     border: none;
   }
+  a:hover {
+    color: white;
+  }
   li:last-child {
     margin-right: 0;
   }
 `;
 
-const MainNav = ({ user }) => {
+const MainNav = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <StyledNav>
       <ul>
