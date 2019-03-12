@@ -25,7 +25,7 @@ const RegisterForm = ({ location, history }) => {
   };
 
   return (
-    <div className="login">
+    <section className="registration">
       <h1>Create an account</h1>
       <form onSubmit={handleSubmit}>
         <Input
@@ -60,7 +60,7 @@ const RegisterForm = ({ location, history }) => {
         />
         <Button>Sign up</Button>
       </form>
-    </div>
+    </section>
   );
 };
 

@@ -24,7 +24,7 @@ const LoginForm = ({ location, history }) => {
   if (auth.user) return <Redirect to="/dashboard" />;
 
   return (
-    <div className="login">
+    <section className="login">
       <h1>Log in</h1>
       <p>
         New user? <Link to="/register">Create an account</Link>
@@ -48,7 +48,7 @@ const LoginForm = ({ location, history }) => {
         />
         <Button>Log in</Button>
       </form>
-    </div>
+    </section>
   );
 };
 
