@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import auth from '../services/authService';
 import Input from './common/Input';
 import Button from './common/Button';
@@ -25,7 +26,10 @@ const LoginForm = ({ location, history }) => {
 
   return (
     <div className="login">
-      <h1>Login</h1>
+      <h1>Log in</h1>
+      <p>
+        New user? <Link to="/register">Create an account</Link>
+      </p>
       <form onSubmit={handleSubmit}>
         <Input
           name="username"
@@ -33,6 +37,7 @@ const LoginForm = ({ location, history }) => {
           onChange={handleChange}
           placeholder="Username"
           label="Username"
+          autoFocus
         />
         <Input
           type="password"
