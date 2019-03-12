@@ -8,11 +8,10 @@ const StyledInput = styled.div`
     padding: 0.25rem 0;
   }
   input {
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.5rem;
     font-size: 0.75rem;
     border: 2px solid #777;
     border-radius: 0.25rem;
-    height: 2rem;
   }
   input::placeholder {
     font-style: italic;
