@@ -15,12 +15,21 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithToken = token => {
+    auth.loginWithToken(token);
+    setUser(auth.getCurrentUser());
+  };
+
   const logout = () => {
     auth.logout();
     setUser(auth.getCurrentUser());
   };
 
-  return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, login, logout, loginWithToken }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export { AuthProvider, AuthContext };
