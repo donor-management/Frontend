@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import campaignService from '../services/campaignService';
 import useDonorService from '../hooks/useDonorService';
+import useCampaignService from '../hooks/useCampaignService';
 
 const AppDataContext = React.createContext();
 
 const AppDataProvider = ({ children }) => {
   const [donors, donorActions] = useDonorService();
-  const [campaigns, setCampaigns] = useState([]);
+  const [campaigns, campaignActions] = useCampaignService([]);
   const [appStatus, setAppStatus] = useState({
     isLoading: false,
     error: null
@@ -19,17 +20,8 @@ const AppDataProvider = ({ children }) => {
     }));
   };
 
-  const getCampaigns = async () => {
-    const { data } = await campaignService.getAll();
-    setCampaigns(data);
-  };
-
-  useEffect(() => {
-    getCampaigns();
-  }, []);
-
   return (
-    <AppDataContext.Provider value={{ donors, donorActions, campaigns }}>
+    <AppDataContext.Provider value={{ donors, donorActions, campaigns, campaignActions }}>
       {children}
     </AppDataContext.Provider>
   );
