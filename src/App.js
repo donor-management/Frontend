@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { AppDataProvider } from './store/AppDataContext';
 import MainNav from './components/MainNav';
 import HomePage from './components/HomePage';
 import RegisterForm from './components/RegisterForm';
@@ -21,23 +21,25 @@ const StyledMain = styled.main`
 
 const App = () => {
   return (
-    <Router>
-      <>
-        <MainNav />
-        <StyledMain>
-          <Switch>
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/logout" component={Logout} />
-            <ProtectedRoute path="/dashboard" component={DashboardPage} />
-            <ProtectedRoute path="/donors" component={DonorsPage} />
-            <ProtectedRoute path="/campaigns" component={CampaignsPage} />
-            <Route path="/" component={HomePage} />
-            <Route component={NotFound} />
-          </Switch>
-        </StyledMain>
-      </>
-    </Router>
+    <AppDataProvider>
+      <Router>
+        <div className="app-wrapper">
+          <MainNav />
+          <StyledMain>
+            <Switch>
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/logout" component={Logout} />
+              <ProtectedRoute path="/dashboard" component={DashboardPage} />
+              <ProtectedRoute path="/donors" component={DonorsPage} />
+              <ProtectedRoute path="/campaigns" component={CampaignsPage} />
+              <Route path="/" component={HomePage} />
+              <Route component={NotFound} />
+            </Switch>
+          </StyledMain>
+        </div>
+      </Router>
+    </AppDataProvider>
   );
 };
 

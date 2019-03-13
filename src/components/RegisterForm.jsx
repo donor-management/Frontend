@@ -1,20 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { register } from '../services/userService';
 import { AuthContext } from '../store/AuthContext';
+import useForm from '../hooks/useForm';
 import Input from './common/Input';
 import Button from './common/Button';
 
-const RegisterForm = ({ location, history }) => {
-  const [newUser, setNewUser] = useState({});
+const RegisterForm = ({ history }) => {
   const auth = useContext(AuthContext);
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setNewUser(values => ({ ...values, [name]: value }));
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const registerUser = async e => {
     try {
       const { data } = await register(newUser);
       auth.loginWithToken(data.token);
@@ -24,13 +18,15 @@ const RegisterForm = ({ location, history }) => {
     }
   };
 
+  const { values: newUser, handleChange, handleSubmit } = useForm(registerUser);
+
   return (
     <section className="registration">
       <h1>Create an account</h1>
       <form onSubmit={handleSubmit}>
         <Input
           name="username"
-          value={newUser.username || ''}
+          value={newUser.username}
           onChange={handleChange}
           placeholder="Username"
           label="Username"
@@ -39,7 +35,7 @@ const RegisterForm = ({ location, history }) => {
           type="password"
           name="password"
           label="Password"
-          value={newUser.password || ''}
+          value={newUser.password}
           onChange={handleChange}
           placeholder="Password"
         />
@@ -47,14 +43,14 @@ const RegisterForm = ({ location, history }) => {
           type="email"
           name="email"
           label="Email address"
-          value={newUser.email || ''}
+          value={newUser.email}
           onChange={handleChange}
           placeholder="you@org.com"
         />
         <Input
           name="organization"
           label="Organization"
-          value={newUser.organization || ''}
+          value={newUser.organization}
           onChange={handleChange}
           placeholder="Organization"
         />
