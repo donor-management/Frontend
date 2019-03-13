@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 const DataListViewContainer = styled.section`
-  .contacted span {
+  /* .contacted span {
     font-size: 80%;
     color: crimson;
     font-weight: normal;
     padding-left: 1rem;
-  }
+  } */
+  font-size: 90%;
   [data-contact-stale='true'] {
     color: crimson;
   }
