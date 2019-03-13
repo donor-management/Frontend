@@ -1,62 +1,13 @@
 import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
 import { AppDataContext } from '../store/AppDataContext';
 import DashNav from './DashNav';
 import DonorForm from './DonorForm';
 import MailTo from './common/MailTo';
 import Button from './common/Button';
+import DataListViewContainer from './common/DataListViewContainer';
 import getDate from '../helpers/getDate';
 import daysSince from '../helpers/daysSince';
 import formatDollars from '../helpers/formatDollars';
-
-const StyledContainer = styled.section`
-  .contacted span {
-    font-size: 80%;
-    color: crimson;
-    font-weight: normal;
-    padding-left: 1rem;
-  }
-  [data-contact-stale='true'] {
-    color: crimson;
-  }
-  .control {
-    opacity: 0.5;
-    margin: 0 0.25rem;
-    padding: 0;
-    background: transparent;
-    img {
-      height: 1.5rem;
-    }
-  }
-  .control:hover {
-    opacity: 1;
-  }
-  .donors-list-item {
-    background: #eee;
-    margin-bottom: 0.5rem;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .name {
-    width: 25%;
-  }
-  .contributions {
-    width: 15%;
-  }
-  .contact {
-    width: 30%;
-    overflow: hidden;
-  }
-  .last-contact {
-    width: 20%;
-  }
-  .controls {
-    /* width: %; */
-  }
-`;
 
 const DonorsPage = () => {
   const { donors, donorActions } = useContext(AppDataContext);
@@ -85,18 +36,18 @@ const DonorsPage = () => {
     return (
       <div className="donors-list">
         {donors.map(d => (
-          <div key={d.id} className="donors-list-item" data-contact-stale={isStale(d.last_contact)}>
-            <div className="name">{d.name}</div>
-            <div className="contributions">
+          <div key={d.id} className="list-item" data-contact-stale={isStale(d.last_contact)}>
+            <div className="donor-name">{d.name}</div>
+            <div className="donor-contributions">
               {/* <span className="label">Lifetime contribution</span> */}
               {formatContribution(d.total_donations)}
             </div>
-            <div className="contact">
+            <div className="donor-contact">
               <MailTo email={d.email}>{d.email}</MailTo>
             </div>
-            <div className="last-contact">{getDate(d.last_contact)}</div>
+            <div className="donor-last-contact">{getDate(d.last_contact)}</div>
 
-            <div className="controls">
+            <div className="donor-controls">
               <Button
                 onClick={() => handleDelete(d.id)}
                 className="btn-delete control"
@@ -124,7 +75,7 @@ const DonorsPage = () => {
   return (
     <>
       <DashNav />
-      <StyledContainer>
+      <DataListViewContainer>
         <h1>
           {pageTitle}{' '}
           {!showForm && (
@@ -135,7 +86,7 @@ const DonorsPage = () => {
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
         {renderDonors()}
-      </StyledContainer>
+      </DataListViewContainer>
     </>
   );
 };
