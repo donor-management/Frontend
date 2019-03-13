@@ -8,7 +8,7 @@ const DashboardPage = () => {
   const name = capitalize(user.username);
 
   return (
-    <>
+    <div className="dashboard-wrapper">
       <DashNav />
       <section>
         <h1>Welcome, {name}</h1>
@@ -18,7 +18,7 @@ const DashboardPage = () => {
         <p>Active campaigns</p>
         [table of campaigns]
       </section>
-    </>
+    </div>
   );
 };
 
