@@ -23,7 +23,13 @@ export function logout() {
 export function getCurrentUser() {
   try {
     const token = localStorage.getItem(tokenKey);
-    return jwtDecode(token);
+    const user = jwtDecode(token);
+    if (Date.now() / 1000 > user.exp) {
+      logout();
+      return null;
+    } else {
+      return jwtDecode(token);
+    }
   } catch (ex) {
     return null;
   }
