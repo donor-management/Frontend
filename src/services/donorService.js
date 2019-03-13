@@ -37,5 +37,13 @@ export function saveDonor(donor) {
 }
 
 export function deleteDonor(donorId) {
-  return http.delete(donorUrl({ id: donorId }));
+  return http.delete(donorUrl(donorId));
 }
+
+export default {
+  getAll: getDonors,
+  get: getDonor,
+  save: saveDonor,
+  // update: saveDonor,
+  delete: deleteDonor
+};
