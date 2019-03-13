@@ -33,8 +33,6 @@ const DashboardPage = () => {
   const { donors, campaigns } = useContext(AppDataContext);
   const name = capitalize(user.username);
 
-  console.log(donors, campaigns);
-
   const activeCampaignsCount = campaigns.reduce((count, campaign) => {
     return campaign.active_campaign === 1 ? count + 1 : count;
   }, 0);
