@@ -6,6 +6,7 @@ import DataListViewContainer from './common/DataListViewContainer';
 import Button from './common/Button';
 import useToggle from '../hooks/useToggle';
 import CampaignForm from './CampaignForm';
+import formatDollars from '../helpers/formatDollars';
 
 const CampaignsPage = () => {
   const { campaigns, campaignActions } = useContext(AppDataContext);
@@ -24,8 +25,8 @@ const CampaignsPage = () => {
             <div className="title">{c.title}</div>
             <div className="cause">{c.cause}</div>
             <div className="description">{c.description}</div>
-            <div className="goal">{c.cash_goal}</div>
-            <div className="received">{c.funds_received}</div>
+            <div className="goal">{formatDollars(c.cash_goal)}</div>
+            <div className="received">{formatDollars(c.funds_received)}</div>
             <div className="active">{c.active_campaign ? 'Active' : 'Inactive'}</div>
             <div className="controls">
               <Button
