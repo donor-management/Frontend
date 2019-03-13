@@ -34,6 +34,7 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Title"
           label="Title"
+          required
         />
         <Input
           name="cause"
@@ -41,6 +42,7 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Cause"
           label="Cause"
+          required
         />
         <Input
           name="description"
@@ -48,6 +50,7 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Description"
           label="Description"
+          required
         />
         <Input
           name="cash_goal"
@@ -56,6 +59,7 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Goal"
           label="Goal"
+          required
         />
 
         <Button>Add Campaign</Button>

@@ -34,6 +34,7 @@ const DonorForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Name"
           label="Name"
+          required
         />
         <Input
           name="email"
@@ -41,6 +42,7 @@ const DonorForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Email"
           label="Email"
+          required
         />
         <Button>Add Donor</Button>
       </form>
