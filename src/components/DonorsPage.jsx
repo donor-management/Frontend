@@ -19,6 +19,15 @@ const StyledContainer = styled.section`
   td[data-contact-stale='true'] {
     color: crimson;
   }
+  .btn-delete,
+  .btn-update {
+    margin: 0 0.25rem;
+    padding: 0;
+    background: transparent;
+    img {
+      height: 1.5rem;
+    }
+  }
 `;
 
 const DonorsPage = () => {
@@ -46,14 +55,18 @@ const DonorsPage = () => {
             <MailTo email={d.email}>{d.email}</MailTo>
 
             {getDate(d.last_contact)}
-            <Button onClick={() => handleDelete(d.id)}>X</Button>
+            <Button onClick={() => handleDelete(d.id)} className="btn-delete" title="Delete donor">
+              <img src="/icons/trash.svg" alt="Delete donor" />
+            </Button>
             <Button
               onClick={() => {
                 d.last_contact = Date.now();
                 handleUpdate(d);
               }}
+              className="btn-update"
+              title="Mark contacted"
             >
-              Mark Contacted
+              <img src="/icons/clock.svg" alt="Mark contacted" />
             </Button>
           </div>
         ))}
