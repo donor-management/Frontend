@@ -1,5 +1,6 @@
 import moment from 'moment';
 
 export default function(timestamp) {
-  return moment(timestamp).format('LLL');
+  const date = moment(timestamp).format('LLL');
+  return date.includes('Invalid') ? 'Never' : date;
 }
