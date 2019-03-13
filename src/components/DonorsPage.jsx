@@ -1,73 +1,63 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useState } from 'react';
 import { AppDataContext } from '../store/AppDataContext';
 import DashNav from './DashNav';
 import DonorForm from './DonorForm';
 import MailTo from './common/MailTo';
 import Button from './common/Button';
+import DataListViewContainer from './common/DataListViewContainer';
 import getDate from '../helpers/getDate';
-import daysSince from '../helpers/daysSince';
+import isStale from '../helpers/isStale';
 import formatDollars from '../helpers/formatDollars';
-
-const StyledContainer = styled.section`
-  .contacted span {
-    font-size: 80%;
-    color: crimson;
-    font-weight: normal;
-    padding-left: 1rem;
-  }
-  td[data-contact-stale='true'] {
-    color: crimson;
-  }
-  .btn-delete,
-  .btn-update {
-    margin: 0 0.25rem;
-    padding: 0;
-    background: transparent;
-    img {
-      height: 1.5rem;
-    }
-  }
-`;
+import useToggle from '../hooks/useToggle';
 
 const DonorsPage = () => {
   const { donors, donorActions } = useContext(AppDataContext);
   const { delete: handleDelete, update: handleUpdate } = donorActions;
-
-  const isStale = timestamp => {
-    return daysSince(timestamp) > 59;
-  };
+  const [showForm, toggleShowForm] = useToggle(false);
 
   const formatContribution = num => {
     return num ? formatDollars(num) : '—';
   };
 
+  const donorCount = donors.length;
+
+  const pageTitle = `${donorCount} donor${donorCount === 1 ? '' : 's'}`;
+
   const renderDonors = () => {
-    if (!donors.length) return <div className="loading">Loading...</div>;
-    console.log(donors);
+    if (!donorCount) return <div className="loading">Loading...</div>;
     return (
       <div className="donors-list">
         {donors.map(d => (
-          <div key={d.id} className="donors-list-item" data-contact-stale={isStale(d.last_contact)}>
-            {d.name}
-            {formatContribution(d.total_donations)}
+          <div key={d.id} className="list-item" data-contact-stale={isStale(d.last_contact)}>
+            <div className="donor-name">{d.name}</div>
+            <div className="donor-contributions">
+              {/* <span className="label">Lifetime contribution</span> */}
+              {formatContribution(d.total_donations)}
+            </div>
+            <div className="donor-contact">
+              <MailTo email={d.email}>{d.email}</MailTo>
+            </div>
+            <div className="donor-last-contact">{getDate(d.last_contact)}</div>
 
-            <MailTo email={d.email}>{d.email}</MailTo>
-
-            {getDate(d.last_contact)}
-            <Button onClick={() => handleDelete(d.id)} className="btn-delete" title="Delete donor">
-              <img src="/icons/trash.svg" alt="Delete donor" />
-            </Button>
-            <Button
-              onClick={() => {
-                d.last_contact = Date.now();
-                handleUpdate(d);
-              }}
-              className="btn-update"
-              title="Mark contacted"
-            >
-              <img src="/icons/clock.svg" alt="Mark contacted" />
-            </Button>
+            <div className="donor-controls">
+              <Button
+                onClick={() => handleDelete(d.id)}
+                className="btn-delete control"
+                title="Delete donor"
+              >
+                <img src="/icons/trash.svg" alt="Delete donor" />
+              </Button>
+              <Button
+                onClick={() => {
+                  d.last_contact = Date.now();
+                  handleUpdate(d);
+                }}
+                className="btn-update control"
+                title="Mark contacted"
+              >
+                <img src="/icons/clock.svg" alt="Mark contacted" />
+              </Button>
+            </div>
           </div>
         ))}
       </div>
@@ -77,11 +67,18 @@ const DonorsPage = () => {
   return (
     <>
       <DashNav />
-      <StyledContainer>
-        <h1>Your donors</h1>
+      <DataListViewContainer>
+        <h1>
+          {pageTitle}{' '}
+          {!showForm && (
+            <Button className="btn-add control" title="Add donor" onClick={toggleShowForm}>
+              <img src="/icons/plus-circle.svg" alt="Add donor" />
+            </Button>
+          )}
+        </h1>
+        {showForm && <DonorForm toggle={toggleShowForm} />}
         {renderDonors()}
-        <DonorForm />
-      </StyledContainer>
+      </DataListViewContainer>
     </>
   );
 };

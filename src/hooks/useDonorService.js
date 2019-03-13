@@ -9,9 +9,11 @@ const useDonorService = () => {
   const getDonors = async () => {
     const { data } = await donorService.getAll();
     setDonors(
-      data.sort((a, b) => {
-        return a.last_contact - b.last_contact;
-      })
+      data
+        .map(d => d.donor)
+        .sort((a, b) => {
+          return a.last_contact - b.last_contact;
+        })
     );
   };
 

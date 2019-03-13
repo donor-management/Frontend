@@ -1,21 +1,32 @@
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import useForm from '../hooks/useForm';
 import Button from './common/Button';
 import Input from './common/Input';
 import { AppDataContext } from '../store/AppDataContext';
 
-const DonorForm = () => {
+const StyledContainer = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const DonorForm = ({ toggle }) => {
   const { donorActions } = useContext(AppDataContext);
 
   const saveDonor = () => {
     donorActions.save(newDonor);
+    toggle();
   };
 
   const { values: newDonor, handleChange, handleSubmit } = useForm(saveDonor);
 
   return (
-    <div className="donor-form">
-      <h3>New donor</h3>
+    <StyledContainer className="donor-form">
+      <h3>
+        New donor{' '}
+        <Button className="btn-close control" title="Close form" onClick={toggle}>
+          <img src="/icons/x-circle.svg" alt="Close form" />
+        </Button>
+      </h3>
       <form onSubmit={handleSubmit}>
         <Input
           name="name"
@@ -33,7 +44,7 @@ const DonorForm = () => {
         />
         <Button>Add Donor</Button>
       </form>
-    </div>
+    </StyledContainer>
   );
 };
 

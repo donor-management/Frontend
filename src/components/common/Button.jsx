@@ -2,18 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  background: #777;
+  background: #5c6ac4;
   color: white;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
-  /* border: 2px solid #777; */
   border: none;
   border-radius: 0.25rem;
   font-weight: bold;
   margin: 0.25rem 0;
   cursor: pointer;
   &:hover {
-    background: #4acaa8;
+    background: #777;
   }
   &:focus {
     outline: none;
