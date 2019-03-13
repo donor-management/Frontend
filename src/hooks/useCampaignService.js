@@ -9,11 +9,13 @@ const useCampaignService = () => {
   const getCampaigns = async () => {
     const { data } = await campaignService.getAll();
     setCampaigns(
-      data.sort((a, b) => {
-        const goalGapA = a.cash_goal - a.funds_received;
-        const goalGapB = b.cash_goal - b.funds_received;
-        return goalGapA - goalGapB;
-      })
+      data
+        .map(i => i.campaign)
+        .sort((a, b) => {
+          const goalGapA = a.cash_goal - a.funds_received;
+          const goalGapB = b.cash_goal - b.funds_received;
+          return goalGapA - goalGapB;
+        })
     );
   };
 
