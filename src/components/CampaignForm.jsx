@@ -49,6 +49,14 @@ const CampaignForm = ({ toggle }) => {
           placeholder="Description"
           label="Description"
         />
+        <Input
+          name="cash_goal"
+          type="number"
+          value={newCampaign.cash_goal}
+          onChange={handleChange}
+          placeholder="Goal"
+          label="Goal"
+        />
 
         <Button>Add Campaign</Button>
       </form>
