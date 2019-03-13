@@ -5,13 +5,13 @@ import Input from './common/Input';
 import { AppDataContext } from '../store/AppDataContext';
 
 const DonorForm = () => {
-  const { saveDonor } = useContext(AppDataContext);
+  const { donorActions } = useContext(AppDataContext);
 
-  const submitForm = () => {
-    saveDonor(newDonor);
+  const saveDonor = () => {
+    donorActions.save(newDonor);
   };
 
-  const { values: newDonor, handleChange, handleSubmit } = useForm(submitForm);
+  const { values: newDonor, handleChange, handleSubmit } = useForm(saveDonor);
 
   return (
     <div className="donor-form">
