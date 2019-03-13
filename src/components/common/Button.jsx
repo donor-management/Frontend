@@ -20,8 +20,8 @@ const StyledButton = styled.button`
   }
 `;
 
-const Input = ({ children }) => {
-  return <StyledButton>{children}</StyledButton>;
+const Input = ({ children, ...rest }) => {
+  return <StyledButton {...rest}>{children}</StyledButton>;
 };
 
 export default Input;
