@@ -6,24 +6,17 @@ import MailTo from './common/MailTo';
 import Button from './common/Button';
 import DataListViewContainer from './common/DataListViewContainer';
 import getDate from '../helpers/getDate';
-import daysSince from '../helpers/daysSince';
+import isStale from '../helpers/isStale';
 import formatDollars from '../helpers/formatDollars';
+import useToggle from '../hooks/useToggle';
 
 const DonorsPage = () => {
   const { donors, donorActions } = useContext(AppDataContext);
   const { delete: handleDelete, update: handleUpdate } = donorActions;
-  const [showForm, setShowForm] = useState(false);
-
-  const isStale = timestamp => {
-    return daysSince(timestamp) > 59;
-  };
+  const [showForm, toggleShowForm] = useToggle(false);
 
   const formatContribution = num => {
     return num ? formatDollars(num) : '—';
-  };
-
-  const toggleShowForm = () => {
-    setShowForm(prev => !prev);
   };
 
   const donorCount = donors.length;
@@ -32,7 +25,6 @@ const DonorsPage = () => {
 
   const renderDonors = () => {
     if (!donorCount) return <div className="loading">Loading...</div>;
-    console.log(donors);
     return (
       <div className="donors-list">
         {donors.map(d => (
