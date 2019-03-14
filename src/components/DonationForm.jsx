@@ -36,18 +36,14 @@ const StyledContainer = styled.div`
 `;
 
 const DonationForm = ({ donorId }) => {
-  const { donorStore, campaignStore } = useContext(AppDataContext);
+  const { campaignStore, donationStore } = useContext(AppDataContext);
 
   const handleSubmit = e => {
     e.preventDefault();
-    recordDonation(donation);
-    handleClear();
-  };
-
-  const recordDonation = donation => {
     donation.donor_id = donorId;
     donation.amount = parseInt(donation.amount);
-    donorStore.recordDonation(donation);
+    donationStore.save(donation);
+    handleClear();
   };
 
   const { values: donation, handleChange, handleClear } = useForm(null);
