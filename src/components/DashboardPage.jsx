@@ -32,9 +32,7 @@ const DashboardPage = () => {
   const { auth, donorStore, campaignStore } = useContext(AppDataContext);
   const name = capitalize(auth.user.username);
 
-  const activeCampaignsCount = campaignStore.campaigns.reduce((count, campaign) => {
-    return campaign.active_campaign === 1 ? count + 1 : count;
-  }, 0);
+  const activeCampaignsCount = campaignStore.campaigns.length;
 
   const staleDonorsCount = donorStore.donors.reduce((count, donor) => {
     return isStale(donor.last_contacted) ? count + 1 : count;
