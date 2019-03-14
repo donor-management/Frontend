@@ -54,8 +54,8 @@ const CampaignForm = ({ toggle }) => {
           type="number"
           value={newCampaign.cash_goal}
           onChange={handleChange}
-          placeholder="Goal"
-          label="Goal"
+          placeholder="$0.00"
+          label="Funding Goal"
           required
         />
 
