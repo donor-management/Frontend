@@ -1,23 +1,67 @@
 import React, { useContext, useState } from 'react';
 import { AppDataContext } from '../store/AppDataContext';
+import styled from 'styled-components';
 import DashNav from './DashNav';
 import DonorForm from './DonorForm';
-import MailTo from './common/MailTo';
 import Button from './common/Button';
-import DataListViewContainer from './common/DataListViewContainer';
-import getDate from '../helpers/getDate';
-import isStale from '../helpers/isStale';
-import formatDollars from '../helpers/formatDollars';
 import useToggle from '../hooks/useToggle';
+import DonorListItem from './DonorListItem';
+
+const DonorPageContainer = styled.section`
+  font-size: 90%;
+  [data-contact-stale='true'] {
+    color: crimson;
+  }
+  .control {
+    /* position: relative; */
+    opacity: 0.5;
+    margin: 0 0.25rem;
+    padding: 0;
+    background: transparent;
+    vertical-align: baseline;
+    /* line-height: 1.5rem; */
+    img {
+      height: 1.5rem;
+      margin-bottom: -0.2rem;
+    }
+  }
+  .control:hover {
+    opacity: 1;
+  }
+  .list-item {
+    background: #f4f4f4;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .list-item:hover {
+    background: #eee;
+  }
+  .donor-name {
+    width: 25%;
+  }
+  .donor-contributions {
+    width: 15%;
+  }
+  .donor-contact {
+    width: 25%;
+    overflow: hidden;
+  }
+  .donor-last-contact {
+    width: 20%;
+  }
+  .controls {
+    /* width: %; */
+  }
+`;
 
 const DonorsPage = () => {
   const { donors, donorActions } = useContext(AppDataContext);
   const { delete: handleDelete, update: handleUpdate } = donorActions;
   const [showForm, toggleShowForm] = useToggle(false);
-
-  const formatContribution = num => {
-    return num ? formatDollars(num) : '—';
-  };
 
   const donorCount = donors.length;
 
@@ -27,38 +71,13 @@ const DonorsPage = () => {
     if (!donorCount) return <div className="loading">Loading...</div>;
     return (
       <div className="donors-list">
-        {donors.map(d => (
-          <div key={d.id} className="list-item" data-contact-stale={isStale(d.last_contact)}>
-            <div className="donor-name">{d.name}</div>
-            <div className="donor-contributions">
-              {/* <span className="label">Lifetime contribution</span> */}
-              {formatContribution(d.total_donations)}
-            </div>
-            <div className="donor-contact">
-              <MailTo email={d.email}>{d.email}</MailTo>
-            </div>
-            <div className="donor-last-contact">{getDate(d.last_contact)}</div>
-
-            <div className="donor-controls">
-              <Button
-                onClick={() => handleDelete(d.id)}
-                className="btn-delete control"
-                title="Delete donor"
-              >
-                <img src="/icons/trash.svg" alt="Delete donor" />
-              </Button>
-              <Button
-                onClick={() => {
-                  d.last_contact = Date.now();
-                  handleUpdate(d);
-                }}
-                className="btn-update control"
-                title="Mark contacted"
-              >
-                <img src="/icons/clock.svg" alt="Mark contacted" />
-              </Button>
-            </div>
-          </div>
+        {donors.map(donor => (
+          <DonorListItem
+            key={donor.id}
+            donor={donor}
+            handleUpdate={handleUpdate}
+            handleDelete={handleDelete}
+          />
         ))}
       </div>
     );
@@ -67,7 +86,7 @@ const DonorsPage = () => {
   return (
     <>
       <DashNav />
-      <DataListViewContainer>
+      <DonorPageContainer>
         <h1>
           {pageTitle}{' '}
           {!showForm && (
@@ -78,7 +97,7 @@ const DonorsPage = () => {
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
         {renderDonors()}
-      </DataListViewContainer>
+      </DonorPageContainer>
     </>
   );
 };
