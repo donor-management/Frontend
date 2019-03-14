@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import DashNav from './DashNav';
 import { AppDataContext } from '../store/AppDataContext';
-import Button from './common/Button';
 import useToggle from '../hooks/useToggle';
 import CampaignForm from './CampaignForm';
 import formatDollars from '../helpers/formatDollars';
 import ActionButton from './common/ActionButton';
+import DataListContainer from './common/DataListContainer';
 
 const CampaignsPage = () => {
   const { campaigns, campaignActions } = useContext(AppDataContext);
@@ -19,9 +19,9 @@ const CampaignsPage = () => {
     if (!campaigns.length) return <div className="loading">Loading...</div>;
 
     return (
-      <div className="campaigns-list">
+      <DataListContainer>
         {campaigns.map(c => (
-          <div className="list-item" key={c.id}>
+          <div key={c.id}>
             <div className="title">{c.title}</div>
             <div className="cause">{c.cause}</div>
             <div className="description">{c.description}</div>
@@ -38,7 +38,7 @@ const CampaignsPage = () => {
             </div>
           </div>
         ))}
-      </div>
+      </DataListContainer>
     );
   };
 
