@@ -30,6 +30,7 @@ const RegisterForm = ({ history }) => {
           onChange={handleChange}
           placeholder="Username"
           label="Username"
+          required
         />
         <Input
           type="password"
@@ -38,6 +39,7 @@ const RegisterForm = ({ history }) => {
           value={newUser.password}
           onChange={handleChange}
           placeholder="Password"
+          required
         />
         <Input
           type="email"
@@ -46,6 +48,7 @@ const RegisterForm = ({ history }) => {
           value={newUser.email}
           onChange={handleChange}
           placeholder="you@org.com"
+          required
         />
         <Input
           name="organization"
@@ -53,6 +56,7 @@ const RegisterForm = ({ history }) => {
           value={newUser.organization}
           onChange={handleChange}
           placeholder="Organization"
+          required
         />
         <Button>Sign up</Button>
       </form>
