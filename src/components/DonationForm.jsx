@@ -42,13 +42,12 @@ const DonationForm = ({ donorId }) => {
     e.preventDefault();
     donation.donor_id = donorId;
     donation.amount = parseInt(donation.amount);
+    donation.campaign_id = parseInt(donation.campaign_id);
     donationStore.save(donation);
     handleClear();
   };
 
   const { values: donation, handleChange, handleClear } = useForm(null);
-
-  console.log('donation', donation);
 
   const campaignSelectOptions = campaignStore.campaigns.map(c => ({
     label: c.title,
