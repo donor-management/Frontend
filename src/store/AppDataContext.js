@@ -6,7 +6,7 @@ import useCampaignService from '../hooks/useCampaignService';
 const AppDataContext = React.createContext();
 
 const AppDataProvider = ({ children }) => {
-  const [donors, donorActions] = useDonorService();
+  const donorStore = useDonorService();
   const [campaigns, campaignActions] = useCampaignService();
   // const [donations, donationActions] = useDonationService();
   // to handle errors in the future
@@ -24,8 +24,8 @@ const AppDataProvider = ({ children }) => {
 
   // logging
   useEffect(() => {
-    console.log('donors :', donors);
-  }, [donors]);
+    console.log('donorStore :', donorStore);
+  }, [donorStore]);
   useEffect(() => {
     console.log('campaigns :', campaigns);
   }, [campaigns]);
@@ -34,7 +34,7 @@ const AppDataProvider = ({ children }) => {
   // }, [donations]);
 
   return (
-    <AppDataContext.Provider value={{ donors, donorActions, campaigns, campaignActions }}>
+    <AppDataContext.Provider value={{ donorStore, campaigns, campaignActions }}>
       {children}
     </AppDataContext.Provider>
   );

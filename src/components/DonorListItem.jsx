@@ -52,7 +52,7 @@ const DonorListItemContainer = styled.div`
 
 const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
   const [showDonationForm, toggleDonationForm] = useToggle(false);
-  const { donorActions } = useContext(AppDataContext);
+  const { donorStore } = useContext(AppDataContext);
 
   const formatContribution = num => {
     return num ? formatDollars(num) : '—';
@@ -68,7 +68,7 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
     // get campaign id from form select input
     donation.campaign_id = 10;
     donation.amount = parseInt(donation.amount);
-    donorActions.recordDonation(donation);
+    donorStore.recordDonation(donation);
   };
 
   return (

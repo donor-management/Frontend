@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AppDataContext } from '../store/AppDataContext';
+import { Link } from 'react-router-dom';
 import DashNav from './DashNav';
 import DonorForm from './DonorForm';
 import ActionButton from './common/ActionButton';
@@ -8,24 +9,28 @@ import DonorListItem from './DonorListItem';
 import DataListContainer from './common/DataListContainer';
 
 const DonorsPage = () => {
-  const { donors, donorActions } = useContext(AppDataContext);
-  const { delete: handleDelete, update: handleUpdate } = donorActions;
+  const { donorStore } = useContext(AppDataContext);
   const [showForm, toggleShowForm] = useToggle(false);
 
-  const donorCount = donors.length;
+  const donorCount = donorStore.state.length;
 
   const pageTitle = `${donorCount} donor${donorCount === 1 ? '' : 's'}`;
 
   const renderDonors = () => {
-    if (!donorCount) return <div className="loading">Loading...</div>;
+    if (!donorCount)
+      return (
+        <p className="no-donors">
+          You have no donors. <Link to="/donors">Add a donor</Link>
+        </p>
+      );
     return (
       <DataListContainer>
-        {donors.map(donor => (
+        {donorStore.state.map(donor => (
           <DonorListItem
             key={donor.id}
             donor={donor}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
+            handleUpdate={donorStore.update}
+            handleDelete={donorStore.delete}
           />
         ))}
       </DataListContainer>
@@ -47,6 +52,7 @@ const DonorsPage = () => {
           )}
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
+        {donorStore.isLoading && <div className="loading">Loading...</div>}
         {renderDonors()}
       </section>
     </>
