@@ -34,10 +34,10 @@ const DonorListItemContainer = styled.div`
   }
   .stale-tag {
     margin-left: 0.5rem;
-    background: #5c6ac4;
     padding: 0.2rem 0.5rem;
-    color: white;
+    color: #5c6ac4;
     border-radius: 0.25rem;
+    border: 1px solid #5c6ac4;
     font-size: 0.8rem;
     font-weight: bold;
     text-transform: uppercase;

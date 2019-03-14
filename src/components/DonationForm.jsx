@@ -23,7 +23,6 @@ const StyledContainer = styled.div`
   input,
   select {
     margin-right: 0.75rem;
-    height: 2.1rem;
   }
   button {
     margin: 0;
@@ -37,23 +36,18 @@ const StyledContainer = styled.div`
 `;
 
 const DonationForm = ({ donorId }) => {
-  const { donorStore, campaignStore } = useContext(AppDataContext);
+  const { campaignStore, donationStore } = useContext(AppDataContext);
 
   const handleSubmit = e => {
     e.preventDefault();
-    recordDonation(donation);
+    donation.donor_id = donorId;
+    donation.amount = parseInt(donation.amount);
+    donation.campaign_id = parseInt(donation.campaign_id);
+    donationStore.save(donation);
     handleClear();
   };
 
-  const recordDonation = donation => {
-    donation.donor_id = donorId;
-    donation.amount = parseInt(donation.amount);
-    donorStore.recordDonation(donation);
-  };
-
   const { values: donation, handleChange, handleClear } = useForm(null);
-
-  console.log('donation', donation);
 
   const campaignSelectOptions = campaignStore.campaigns.map(c => ({
     label: c.title,
