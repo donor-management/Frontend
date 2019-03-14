@@ -8,12 +8,12 @@ const StyledDiv = styled.div`
     padding: 0.25rem 0;
   }
   select {
-    padding: 0.5rem 0.5rem;
-
+    appearance: none;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
     font-size: 0.75rem;
     border: 2px solid #777;
     border-radius: 0.25rem;
-    background: white;
+    background: white url('/icons/chevron.svg') no-repeat calc(100% - 0.25rem) center;
   }
   select::placeholder {
     font-style: italic;

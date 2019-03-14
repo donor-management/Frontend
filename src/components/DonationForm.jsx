@@ -23,7 +23,6 @@ const StyledContainer = styled.div`
   input,
   select {
     margin-right: 0.75rem;
-    height: 2.1rem;
   }
   button {
     margin: 0;
