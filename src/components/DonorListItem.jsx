@@ -54,10 +54,6 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
   const [showDonationForm, toggleDonationForm] = useToggle(false);
   const { donorStore } = useContext(AppDataContext);
 
-  const formatContribution = num => {
-    return num ? formatDollars(num) : '—';
-  };
-
   const update = donor => {
     donor.last_contact = Date.now();
     handleUpdate(donor);
@@ -86,7 +82,7 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
       </div>
 
       <div className="contributions">
-        <span className="label">Total gifts</span> {formatContribution(donor.total_donations)}
+        <span className="label">Total gifts</span> {formatDollars(donor.total_donations)}
       </div>
       <div className="controls">
         <ActionButton
