@@ -13,10 +13,11 @@ const StyledDashContainer = styled.section`
   .dash-tile {
     margin-bottom: 1rem;
     padding: 2rem;
-    background: #5c6ac4;
+    background: linear-gradient(302deg, rgba(120, 132, 213, 1) 0%, rgba(92, 106, 196, 1) 100%);
     border-radius: 0.5rem;
     color: white;
     font-size: 1.5rem;
+    box-shadow: 2px 2px 5px #eee;
   }
   .figure {
     font-size: 2.5rem;
