@@ -26,6 +26,16 @@ const AppDataProvider = ({ children }) => {
         return d;
       });
     });
+    campaignStore.setCampaigns(prev => {
+      console.log(prev);
+      console.log(donation);
+      return prev.map(c => {
+        if (c.id !== donation.campaign_id) return c;
+        c.funds_received = c.funds_received + donation.amount;
+        console.log(c);
+        return c;
+      });
+    });
   };
 
   const donationStore = {
