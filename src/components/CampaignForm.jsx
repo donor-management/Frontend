@@ -11,10 +11,10 @@ const StyledContainer = styled.div`
 `;
 
 const CampaignForm = ({ toggle }) => {
-  const { campaignActions } = useContext(AppDataContext);
+  const { campaignStore } = useContext(AppDataContext);
 
   const saveCampaign = () => {
-    campaignActions.save(newCampaign);
+    campaignStore.save(newCampaign);
     toggle();
   };
 

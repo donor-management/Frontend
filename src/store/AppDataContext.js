@@ -7,7 +7,7 @@ const AppDataContext = React.createContext();
 
 const AppDataProvider = ({ children }) => {
   const donorStore = useDonorService();
-  const [campaigns, campaignActions] = useCampaignService();
+  const campaignStore = useCampaignService();
   // const [donations, donationActions] = useDonationService();
   // to handle errors in the future
   // const [appStatus, setAppStatus] = useState({
@@ -27,14 +27,14 @@ const AppDataProvider = ({ children }) => {
     console.log('donorStore :', donorStore);
   }, [donorStore]);
   useEffect(() => {
-    console.log('campaigns :', campaigns);
-  }, [campaigns]);
+    console.log('campaignStore :', campaignStore);
+  }, [campaignStore]);
   // useEffect(() => {
   //   console.log('donations :', donations);
   // }, [donations]);
 
   return (
-    <AppDataContext.Provider value={{ donorStore, campaigns, campaignActions }}>
+    <AppDataContext.Provider value={{ donorStore, campaignStore }}>
       {children}
     </AppDataContext.Provider>
   );

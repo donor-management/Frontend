@@ -31,10 +31,10 @@ const StyledDashContainer = styled.section`
 
 const DashboardPage = () => {
   const { user } = useContext(AuthContext);
-  const { donorStore, campaigns } = useContext(AppDataContext);
+  const { donorStore, campaignStore } = useContext(AppDataContext);
   const name = capitalize(user.username);
 
-  const activeCampaignsCount = campaigns.reduce((count, campaign) => {
+  const activeCampaignsCount = campaignStore.state.reduce((count, campaign) => {
     return campaign.active_campaign === 1 ? count + 1 : count;
   }, 0);
 

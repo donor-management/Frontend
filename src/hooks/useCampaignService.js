@@ -5,18 +5,29 @@ import { AuthContext } from '../store/AuthContext';
 const useCampaignService = () => {
   const { user } = useContext(AuthContext);
   const [campaigns, setCampaigns] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const getCampaigns = async () => {
-    const { data } = await campaignService.getAll();
-    setCampaigns(
-      data
-        .map(i => i.campaign)
-        .sort((a, b) => {
-          const goalGapA = a.cash_goal - a.funds_received;
-          const goalGapB = b.cash_goal - b.funds_received;
-          return goalGapA - goalGapB;
-        })
-    );
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { data } = await campaignService.getAll();
+      setCampaigns(
+        data
+          .map(i => i.campaign)
+          .sort((a, b) => {
+            const goalGapA = a.cash_goal - a.funds_received;
+            const goalGapB = b.cash_goal - b.funds_received;
+            return goalGapA - goalGapB;
+          })
+      );
+      setIsLoading(false);
+    } catch (ex) {
+      console.log(ex);
+      setError(ex);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -51,15 +62,24 @@ const useCampaignService = () => {
     }
   };
 
-  return [
-    campaigns,
-    {
-      getAll: getCampaigns,
-      save: saveCampaign,
-      update: updateCampaign,
-      delete: deleteCampaign
-    }
-  ];
+  // return [
+  //   campaigns,
+  //   {
+  //     getAll: getCampaigns,
+  // save: saveCampaign,
+  // update: updateCampaign,
+  // delete: deleteCampaign
+  //   }
+  // ];
+  return {
+    state: campaigns,
+    isLoading,
+    error,
+    getAll: getCampaigns,
+    save: saveCampaign,
+    update: updateCampaign,
+    delete: deleteCampaign
+  };
 };
 
 export default useCampaignService;
