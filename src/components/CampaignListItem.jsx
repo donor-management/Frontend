@@ -41,10 +41,10 @@ const CampaignListItemContainer = styled.div`
     position: absolute;
     bottom: 3.25rem;
     right: 1rem;
-    background: #5c6ac4;
     padding: 0.2rem 0.5rem;
-    color: white;
+    color: #5c6ac4;
     border-radius: 0.25rem;
+    border: 1px solid #5c6ac4;
     font-size: 80%;
     font-weight: bold;
     text-transform: uppercase;
@@ -71,7 +71,7 @@ const CampaignListItem = ({ campaign, handleUpdate, handleDelete }) => {
       <div className="raised">
         <span>Raised</span> {formatDollars(campaign.funds_received)}
       </div>
-      {goalMet && <div className="met-tag">Met</div>}
+      {goalMet && <div className="met-tag">Goal Met</div>}
       <div className="controls">
         {/* <ActionButton imgSrc="/icons/edit.svg" onClick={null} alt="Edit campaign" /> */}
         <ActionButton
