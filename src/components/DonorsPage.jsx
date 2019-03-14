@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { AppDataContext } from '../store/AppDataContext';
-import { Link } from 'react-router-dom';
 import DashNav from './DashNav';
 import DonorForm from './DonorForm';
 import ActionButton from './common/ActionButton';
@@ -17,12 +16,7 @@ const DonorsPage = () => {
   const pageTitle = `${donorCount} donor${donorCount === 1 ? '' : 's'}`;
 
   const renderDonors = () => {
-    if (!donorCount)
-      return (
-        <p className="no-donors">
-          You have no donors. <Link to="/donors">Add a donor</Link>
-        </p>
-      );
+    if (!donorCount) return <p className="no-records">You have no donors.</p>;
     return (
       <DataListContainer>
         {donorStore.state.map(donor => (
