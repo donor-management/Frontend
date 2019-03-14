@@ -10,7 +10,7 @@ import DataListContainer from './common/DataListContainer';
 const CampaignsPage = () => {
   const { campaignStore } = useContext(AppDataContext);
   const [showForm, toggleShowForm] = useToggle(false);
-  const campaignCount = campaignStore.state.length;
+  const campaignCount = campaignStore.campaigns.length;
   const pageTitle = `${campaignCount} campaign${campaignCount === 1 ? '' : 's'}`;
 
   const renderCampaigns = () => {
@@ -18,7 +18,7 @@ const CampaignsPage = () => {
 
     return (
       <DataListContainer>
-        {campaignStore.state.map(c => (
+        {campaignStore.campaigns.map(c => (
           <CampaignListItem
             key={c.id}
             campaign={c}

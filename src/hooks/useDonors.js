@@ -82,7 +82,7 @@ const useDonors = () => {
   //   }
   // ];
   return {
-    state: donors,
+    donors,
     isLoading,
     error,
     getAll: getDonors,

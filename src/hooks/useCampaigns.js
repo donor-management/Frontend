@@ -72,7 +72,7 @@ const useCampaigns = () => {
   //   }
   // ];
   return {
-    state: campaigns,
+    campaigns,
     isLoading,
     error,
     getAll: getCampaigns,

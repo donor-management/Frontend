@@ -12,7 +12,7 @@ const DonorsPage = () => {
   const { donorStore } = useContext(AppDataContext);
   const [showForm, toggleShowForm] = useToggle(false);
 
-  const donorCount = donorStore.state.length;
+  const donorCount = donorStore.donors.length;
 
   const pageTitle = `${donorCount} donor${pluralize(donorCount)}`;
 
@@ -20,7 +20,7 @@ const DonorsPage = () => {
     if (!donorCount) return <p className="no-records">You have no donors.</p>;
     return (
       <DataListContainer>
-        {donorStore.state.map(donor => (
+        {donorStore.donors.map(donor => (
           <DonorListItem
             key={donor.id}
             donor={donor}

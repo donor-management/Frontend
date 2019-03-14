@@ -34,15 +34,15 @@ const DashboardPage = () => {
   const { donorStore, campaignStore } = useContext(AppDataContext);
   const name = capitalize(user.username);
 
-  const activeCampaignsCount = campaignStore.state.reduce((count, campaign) => {
+  const activeCampaignsCount = campaignStore.campaigns.reduce((count, campaign) => {
     return campaign.active_campaign === 1 ? count + 1 : count;
   }, 0);
 
-  const staleDonorsCount = donorStore.state.reduce((count, donor) => {
+  const staleDonorsCount = donorStore.donors.reduce((count, donor) => {
     return isStale(donor.last_contacted) ? count + 1 : count;
   }, 0);
 
-  const totalContributions = donorStore.state.reduce((total, donor) => {
+  const totalContributions = donorStore.donors.reduce((total, donor) => {
     return total + donor.total_donations;
   }, 0);
 
@@ -51,7 +51,7 @@ const DashboardPage = () => {
       <DashNav />
       <StyledDashContainer>
         <h1>Welcome, {name}</h1>
-        {!donorStore.state.length && (
+        {!donorStore.donors.length && (
           <p className="no-donors">
             You have no donors. <Link to="/donors">Add a donor</Link>
           </p>
