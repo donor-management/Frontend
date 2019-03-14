@@ -20,8 +20,12 @@ const useCampaignService = () => {
   };
 
   useEffect(() => {
-    getCampaigns();
-  }, []);
+    if (user) {
+      getCampaigns();
+    } else {
+      setCampaigns([]);
+    }
+  }, [user]);
 
   const saveCampaign = async campaign => {
     campaign.org_id = user.org_id;

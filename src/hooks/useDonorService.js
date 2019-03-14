@@ -19,8 +19,12 @@ const useDonorService = () => {
   };
 
   useEffect(() => {
-    getDonors();
-  }, []);
+    if (user) {
+      getDonors();
+    } else {
+      setDonors([]);
+    }
+  }, [user]);
 
   const saveDonor = async donor => {
     donor.org_id = user.org_id;
