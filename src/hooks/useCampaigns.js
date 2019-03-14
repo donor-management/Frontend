@@ -62,17 +62,8 @@ const useCampaigns = () => {
     }
   };
 
-  // return [
-  //   campaigns,
-  //   {
-  //     getAll: getCampaigns,
-  // save: saveCampaign,
-  // update: updateCampaign,
-  // delete: deleteCampaign
-  //   }
-  // ];
   return {
-    state: campaigns,
+    campaigns,
     isLoading,
     error,
     getAll: getCampaigns,

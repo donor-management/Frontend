@@ -7,12 +7,13 @@ import useToggle from '../hooks/useToggle';
 import DonorListItem from './DonorListItem';
 import DataListContainer from './common/DataListContainer';
 import pluralize from '../helpers/pluralize';
+import LoadingNotify from './common/LoadingNotify';
 
 const DonorsPage = () => {
   const { donorStore } = useContext(AppDataContext);
   const [showForm, toggleShowForm] = useToggle(false);
 
-  const donorCount = donorStore.state.length;
+  const donorCount = donorStore.donors.length;
 
   const pageTitle = `${donorCount} donor${pluralize(donorCount)}`;
 
@@ -20,7 +21,7 @@ const DonorsPage = () => {
     if (!donorCount) return <p className="no-records">You have no donors.</p>;
     return (
       <DataListContainer>
-        {donorStore.state.map(donor => (
+        {donorStore.donors.map(donor => (
           <DonorListItem
             key={donor.id}
             donor={donor}
@@ -47,7 +48,7 @@ const DonorsPage = () => {
           )}
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
-        {donorStore.isLoading && <div className="loading">Loading...</div>}
+        {donorStore.isLoading && <LoadingNotify />}
         {renderDonors()}
       </section>
     </>

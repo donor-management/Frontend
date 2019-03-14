@@ -6,11 +6,12 @@ import CampaignForm from './CampaignForm';
 import CampaignListItem from './CampaignListItem';
 import ActionButton from './common/ActionButton';
 import DataListContainer from './common/DataListContainer';
+import LoadingNotify from './common/LoadingNotify';
 
 const CampaignsPage = () => {
   const { campaignStore } = useContext(AppDataContext);
   const [showForm, toggleShowForm] = useToggle(false);
-  const campaignCount = campaignStore.state.length;
+  const campaignCount = campaignStore.campaigns.length;
   const pageTitle = `${campaignCount} campaign${campaignCount === 1 ? '' : 's'}`;
 
   const renderCampaigns = () => {
@@ -18,7 +19,7 @@ const CampaignsPage = () => {
 
     return (
       <DataListContainer>
-        {campaignStore.state.map(c => (
+        {campaignStore.campaigns.map(c => (
           <CampaignListItem
             key={c.id}
             campaign={c}
@@ -45,7 +46,7 @@ const CampaignsPage = () => {
           )}
         </h1>
         {showForm && <CampaignForm toggle={toggleShowForm} />}
-        {campaignStore.isLoading && <div className="loading">Loading...</div>}
+        {campaignStore.isLoading && <LoadingNotify />}
         {renderCampaigns()}
       </section>
     </>

@@ -5,6 +5,7 @@ import ActionButton from './common/ActionButton';
 
 const CampaignListItemContainer = styled.div`
   min-width: 30rem;
+  min-height: 8.25rem;
   padding: 1rem 1rem 3.5rem;
   .title {
     font-size: 145%;
@@ -51,7 +52,7 @@ const CampaignListItemContainer = styled.div`
   .controls {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    right: 0.75rem;
   }
 `;
 
@@ -72,7 +73,7 @@ const CampaignListItem = ({ campaign, handleUpdate, handleDelete }) => {
       </div>
       {goalMet && <div className="met-tag">Met</div>}
       <div className="controls">
-        <ActionButton imgSrc="/icons/edit.svg" onClick={null} alt="Edit campaign" />
+        {/* <ActionButton imgSrc="/icons/edit.svg" onClick={null} alt="Edit campaign" /> */}
         <ActionButton
           imgSrc="/icons/trash.svg"
           onClick={() => handleDelete(campaign.id)}

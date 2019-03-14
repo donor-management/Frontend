@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { AppDataContext } from '../store/AppDataContext';
 import MailTo from './common/MailTo';
 import getDate from '../helpers/getDate';
 import isStale from '../helpers/isStale';
@@ -46,29 +45,16 @@ const DonorListItemContainer = styled.div`
   .controls {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    right: 0.75rem;
   }
 `;
 
 const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
   const [showDonationForm, toggleDonationForm] = useToggle(false);
-  const { donorStore } = useContext(AppDataContext);
-
-  const formatContribution = num => {
-    return num ? formatDollars(num) : '—';
-  };
 
   const update = donor => {
     donor.last_contact = Date.now();
     handleUpdate(donor);
-  };
-
-  const recordDonation = donation => {
-    donation.donor_id = donor.id;
-    // get campaign id from form select input
-    donation.campaign_id = 10;
-    donation.amount = parseInt(donation.amount);
-    donorStore.recordDonation(donation);
   };
 
   return (
@@ -86,7 +72,7 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
       </div>
 
       <div className="contributions">
-        <span className="label">Total gifts</span> {formatContribution(donor.total_donations)}
+        <span className="label">Total gifts</span> {formatDollars(donor.total_donations)}
       </div>
       <div className="controls">
         <ActionButton
@@ -105,7 +91,7 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
           onClick={() => handleDelete(donor.id)}
         />
       </div>
-      {showDonationForm && <DonationForm recordDonation={recordDonation} />}
+      {showDonationForm && <DonationForm donorId={donor.id} />}
     </DonorListItemContainer>
   );
 };

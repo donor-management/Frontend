@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledInput = styled.div`
+const StyledDiv = styled.div`
   margin-bottom: 0.5rem;
   label {
     display: block;
@@ -30,7 +30,7 @@ const StyledInput = styled.div`
 
 const Input = ({ type = 'text', name, value, label, error, ...rest }) => {
   return (
-    <StyledInput className="form-group">
+    <StyledDiv>
       <label htmlFor={name}>{label}</label>
       <input
         {...rest}
@@ -41,7 +41,7 @@ const Input = ({ type = 'text', name, value, label, error, ...rest }) => {
         className="form-control"
       />
       {error && <div className="form-error">{error}</div>}
-    </StyledInput>
+    </StyledDiv>
   );
 };
 

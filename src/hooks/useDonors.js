@@ -71,18 +71,8 @@ const useDonors = () => {
     );
   };
 
-  // return [
-  //   donors,
-  //   {
-  //     getAll: getDonors,
-  //     save: saveDonor,
-  //     update: updateDonor,
-  //     delete: deleteDonor,
-  //     recordDonation
-  //   }
-  // ];
   return {
-    state: donors,
+    donors,
     isLoading,
     error,
     getAll: getDonors,
