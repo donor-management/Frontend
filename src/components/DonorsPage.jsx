@@ -6,26 +6,26 @@ import ActionButton from './common/ActionButton';
 import useToggle from '../hooks/useToggle';
 import DonorListItem from './DonorListItem';
 import DataListContainer from './common/DataListContainer';
+import pluralize from '../helpers/pluralize';
 
 const DonorsPage = () => {
-  const { donors, donorActions } = useContext(AppDataContext);
-  const { delete: handleDelete, update: handleUpdate } = donorActions;
+  const { donorStore } = useContext(AppDataContext);
   const [showForm, toggleShowForm] = useToggle(false);
 
-  const donorCount = donors.length;
+  const donorCount = donorStore.state.length;
 
-  const pageTitle = `${donorCount} donor${donorCount === 1 ? '' : 's'}`;
+  const pageTitle = `${donorCount} donor${pluralize(donorCount)}`;
 
   const renderDonors = () => {
-    if (!donorCount) return <div className="loading">Loading...</div>;
+    if (!donorCount) return <p className="no-records">You have no donors.</p>;
     return (
       <DataListContainer>
-        {donors.map(donor => (
+        {donorStore.state.map(donor => (
           <DonorListItem
             key={donor.id}
             donor={donor}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
+            handleUpdate={donorStore.update}
+            handleDelete={donorStore.delete}
           />
         ))}
       </DataListContainer>
@@ -47,6 +47,7 @@ const DonorsPage = () => {
           )}
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
+        {donorStore.isLoading && <div className="loading">Loading...</div>}
         {renderDonors()}
       </section>
     </>

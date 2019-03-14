@@ -11,10 +11,10 @@ const StyledContainer = styled.div`
 `;
 
 const DonorForm = ({ toggle }) => {
-  const { donorActions } = useContext(AppDataContext);
+  const { donorStore } = useContext(AppDataContext);
 
   const saveDonor = () => {
-    donorActions.save(newDonor);
+    donorStore.save(newDonor);
     toggle();
   };
 

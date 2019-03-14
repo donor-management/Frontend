@@ -11,10 +11,10 @@ const StyledContainer = styled.div`
 `;
 
 const CampaignForm = ({ toggle }) => {
-  const { campaignActions } = useContext(AppDataContext);
+  const { campaignStore } = useContext(AppDataContext);
 
   const saveCampaign = () => {
-    campaignActions.save(newCampaign);
+    campaignStore.save(newCampaign);
     toggle();
   };
 
@@ -41,7 +41,6 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Cause"
           label="Cause"
-          required
         />
         <Input
           name="description"
@@ -49,7 +48,6 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Description"
           label="Description"
-          required
         />
         <Input
           name="cash_goal"

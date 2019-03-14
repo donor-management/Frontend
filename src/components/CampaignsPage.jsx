@@ -8,23 +8,22 @@ import ActionButton from './common/ActionButton';
 import DataListContainer from './common/DataListContainer';
 
 const CampaignsPage = () => {
-  const { campaigns, campaignActions } = useContext(AppDataContext);
-  const { delete: handleDelete, update: handleUpdate } = campaignActions;
+  const { campaignStore } = useContext(AppDataContext);
   const [showForm, toggleShowForm] = useToggle(false);
-  const campaignCount = campaigns.length;
+  const campaignCount = campaignStore.state.length;
   const pageTitle = `${campaignCount} campaign${campaignCount === 1 ? '' : 's'}`;
 
   const renderCampaigns = () => {
-    if (!campaigns.length) return <div className="loading">Loading...</div>;
+    if (!campaignCount) return <p className="no-records">You have no campaigns.</p>;
 
     return (
       <DataListContainer>
-        {campaigns.map(c => (
+        {campaignStore.state.map(c => (
           <CampaignListItem
             key={c.id}
             campaign={c}
-            handleDelete={handleDelete}
-            handleUpdate={handleUpdate}
+            handleDelete={campaignStore.delete}
+            handleUpdate={campaignStore.update}
           />
         ))}
       </DataListContainer>
@@ -36,7 +35,7 @@ const CampaignsPage = () => {
       <DashNav />
       <section>
         <h1>
-          {pageTitle}{' '}
+          {pageTitle}
           {!showForm && (
             <ActionButton
               imgSrc="/icons/plus-circle.svg"
@@ -46,6 +45,7 @@ const CampaignsPage = () => {
           )}
         </h1>
         {showForm && <CampaignForm toggle={toggleShowForm} />}
+        {campaignStore.isLoading && <div className="loading">Loading...</div>}
         {renderCampaigns()}
       </section>
     </>

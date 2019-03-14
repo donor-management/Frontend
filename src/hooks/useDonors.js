@@ -3,24 +3,39 @@ import donorService from '../services/donorService';
 import donationService from '../services/donationService';
 import { AuthContext } from '../store/AuthContext';
 
-const useDonorService = () => {
+const useDonors = () => {
   const { user } = useContext(AuthContext);
   const [donors, setDonors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const getDonors = async () => {
-    const { data } = await donorService.getAll();
-    setDonors(
-      data
-        .map(d => d.donor)
-        .sort((a, b) => {
-          return a.last_contact - b.last_contact;
-        })
-    );
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { data } = await donorService.getAll();
+      setDonors(
+        data
+          .map(d => d.donor)
+          .sort((a, b) => {
+            return a.last_contact - b.last_contact;
+          })
+      );
+      setIsLoading(false);
+    } catch (ex) {
+      console.log(ex);
+      setError(ex);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    getDonors();
-  }, []);
+    if (user) {
+      getDonors();
+    } else {
+      setDonors([]);
+    }
+  }, [user]);
 
   const saveDonor = async donor => {
     donor.org_id = user.org_id;
@@ -56,16 +71,26 @@ const useDonorService = () => {
     );
   };
 
-  return [
-    donors,
-    {
-      getAll: getDonors,
-      save: saveDonor,
-      update: updateDonor,
-      delete: deleteDonor,
-      recordDonation
-    }
-  ];
+  // return [
+  //   donors,
+  //   {
+  //     getAll: getDonors,
+  //     save: saveDonor,
+  //     update: updateDonor,
+  //     delete: deleteDonor,
+  //     recordDonation
+  //   }
+  // ];
+  return {
+    state: donors,
+    isLoading,
+    error,
+    getAll: getDonors,
+    save: saveDonor,
+    update: updateDonor,
+    delete: deleteDonor,
+    recordDonation
+  };
 };
 
-export default useDonorService;
+export default useDonors;

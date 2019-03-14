@@ -1,40 +1,23 @@
 import React, { useEffect } from 'react';
-import useDonorService from '../hooks/useDonorService';
-import useCampaignService from '../hooks/useCampaignService';
-// import useDonationService from '../hooks/useDonationService';
+import useDonors from '../hooks/useDonors';
+import useCampaigns from '../hooks/useCampaigns';
 
 const AppDataContext = React.createContext();
 
 const AppDataProvider = ({ children }) => {
-  const [donors, donorActions] = useDonorService();
-  const [campaigns, campaignActions] = useCampaignService();
-  // const [donations, donationActions] = useDonationService();
-  // to handle errors in the future
-  // const [appStatus, setAppStatus] = useState({
-  //   isLoading: false,
-  //   error: null
-  // });
-
-  // const toggleLoading = () => {
-  //   setAppStatus(prev => ({
-  //     ...prev,
-  //     isLoading: !prev.isLoading
-  //   }));
-  // };
+  const donorStore = useDonors();
+  const campaignStore = useCampaigns();
 
   // logging
   useEffect(() => {
-    console.log('donors :', donors);
-  }, [donors]);
+    console.log('donorStore :', donorStore);
+  }, [donorStore]);
   useEffect(() => {
-    console.log('campaigns :', campaigns);
-  }, [campaigns]);
-  // useEffect(() => {
-  //   console.log('donations :', donations);
-  // }, [donations]);
+    console.log('campaignStore :', campaignStore);
+  }, [campaignStore]);
 
   return (
-    <AppDataContext.Provider value={{ donors, donorActions, campaigns, campaignActions }}>
+    <AppDataContext.Provider value={{ donorStore, campaignStore }}>
       {children}
     </AppDataContext.Provider>
   );
