@@ -6,63 +6,7 @@ import Button from './common/Button';
 import useToggle from '../hooks/useToggle';
 import CampaignForm from './CampaignForm';
 import formatDollars from '../helpers/formatDollars';
-
-const CampaignPageContainer = styled.section`
-  /* .contacted span {
-    font-size: 80%;
-    color: crimson;
-    font-weight: normal;
-    padding-left: 1rem;
-  } */
-  font-size: 90%;
-  [data-contact-stale='true'] {
-    color: crimson;
-  }
-  .control {
-    /* position: relative; */
-    opacity: 0.5;
-    margin: 0 0.25rem;
-    padding: 0;
-    background: transparent;
-    vertical-align: baseline;
-    /* line-height: 1.5rem; */
-    img {
-      height: 1.5rem;
-      margin-bottom: -0.2rem;
-    }
-  }
-  .control:hover {
-    opacity: 1;
-  }
-  .list-item {
-    background: #f4f4f4;
-    margin-bottom: 0.5rem;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .list-item:hover {
-    background: #eee;
-  }
-  .donor-name {
-    width: 25%;
-  }
-  .donor-contributions {
-    width: 15%;
-  }
-  .donor-contact {
-    width: 25%;
-    overflow: hidden;
-  }
-  .donor-last-contact {
-    width: 20%;
-  }
-  .controls {
-    /* width: %; */
-  }
-`;
+import ActionButton from './common/ActionButton';
 
 const CampaignsPage = () => {
   const { campaigns, campaignActions } = useContext(AppDataContext);
@@ -85,16 +29,12 @@ const CampaignsPage = () => {
             <div className="received">{formatDollars(c.funds_received)}</div>
             <div className="active">{c.active_campaign ? 'Active' : 'Inactive'}</div>
             <div className="controls">
-              <Button
+              <ActionButton
+                imgSrc="/icons/trash.svg"
                 onClick={() => handleDelete(c.id)}
-                className="btn-delete control"
-                title="Delete campaign"
-              >
-                <img src="/icons/trash.svg" alt="Delete campaign" />
-              </Button>
-              <Button className="btn-edit control" title="Edit campaign">
-                <img src="/icons/edit.svg" alt="Edit campaign" />
-              </Button>
+                alt="Delete campaign"
+              />
+              <ActionButton imgSrc="/icons/edit.svg" onClick={null} alt="Edit campaign" />
             </div>
           </div>
         ))}
@@ -105,18 +45,20 @@ const CampaignsPage = () => {
   return (
     <>
       <DashNav />
-      <CampaignPageContainer>
+      <section>
         <h1>
           {pageTitle}{' '}
           {!showForm && (
-            <Button className="btn-add control" title="Add campaign" onClick={toggleShowForm}>
-              <img src="/icons/plus-circle.svg" alt="Add campaign" />
-            </Button>
+            <ActionButton
+              imgSrc="/icons/plus-circle.svg"
+              onClick={toggleShowForm}
+              alt="Add campaign"
+            />
           )}
         </h1>
         {showForm && <CampaignForm toggle={toggleShowForm} />}
         {renderCampaigns()}
-      </CampaignPageContainer>
+      </section>
     </>
   );
 };

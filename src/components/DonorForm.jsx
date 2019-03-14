@@ -4,6 +4,7 @@ import useForm from '../hooks/useForm';
 import Button from './common/Button';
 import Input from './common/Input';
 import { AppDataContext } from '../store/AppDataContext';
+import ActionButton from './common/ActionButton';
 
 const StyledContainer = styled.div`
   margin-bottom: 1rem;
@@ -22,10 +23,8 @@ const DonorForm = ({ toggle }) => {
   return (
     <StyledContainer className="donor-form">
       <h3>
-        New donor{' '}
-        <Button className="btn-close control" title="Close form" onClick={toggle}>
-          <img src="/icons/x-circle.svg" alt="Close form" />
-        </Button>
+        New donor
+        <ActionButton imgSrc="/icons/x-circle.svg" alt="Close form" onClick={toggle} />
       </h3>
       <form onSubmit={handleSubmit}>
         <Input

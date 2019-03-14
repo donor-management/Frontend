@@ -4,13 +4,32 @@ import MailTo from './common/MailTo';
 import getDate from '../helpers/getDate';
 import isStale from '../helpers/isStale';
 import formatDollars from '../helpers/formatDollars';
-import Button from './common/Button';
+import ActionButton from './common/ActionButton';
+import { updateLocale } from 'moment';
 
-const DonorListItemContainer = styled.div``;
+const DonorListItemContainer = styled.div`
+  .donor-name {
+    width: 25%;
+  }
+  .donor-contributions {
+    width: 15%;
+  }
+  .donor-contact {
+    width: 25%;
+    overflow: hidden;
+  }
+  .donor-last-contact {
+    width: 20%;
+  }
+`;
 
 const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
   const formatContribution = num => {
     return num ? formatDollars(num) : '—';
+  };
+  const update = donor => {
+    donor.last_contact = Date.now();
+    handleUpdate(donor);
   };
   return (
     <DonorListItemContainer>
@@ -26,26 +45,17 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
         <div className="donor-last-contact">{getDate(donor.last_contact)}</div>
 
         <div className="donor-controls">
-          <Button
-            onClick={() => {
-              donor.last_contact = Date.now();
-              handleUpdate(donor);
-            }}
-            className="btn-update control"
-            title="Mark contacted"
-          >
-            <img src="/icons/clock.svg" alt="Mark contacted" />
-          </Button>
-          <Button className="btn-add control" title="Add donation">
-            <img src="/icons/money-sign.svg" alt="Add donation" />
-          </Button>
-          <Button
+          <ActionButton
+            imgSrc="/icons/clock.svg"
+            alt="Mark contacted"
+            onClick={() => update(donor)}
+          />
+          <ActionButton imgSrc="/icons/money-sign.svg" alt="Add donation" onClick={null} />
+          <ActionButton
+            imgSrc="/icons/trash.svg"
+            alt="Delete donor"
             onClick={() => handleDelete(donor.id)}
-            className="btn-delete control"
-            title="Delete donor"
-          >
-            <img src="/icons/trash.svg" alt="Delete donor" />
-          </Button>
+          />
         </div>
       </div>
     </DonorListItemContainer>

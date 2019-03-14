@@ -3,30 +3,13 @@ import { AppDataContext } from '../store/AppDataContext';
 import styled from 'styled-components';
 import DashNav from './DashNav';
 import DonorForm from './DonorForm';
-import Button from './common/Button';
+import ActionButton from './common/ActionButton';
 import useToggle from '../hooks/useToggle';
 import DonorListItem from './DonorListItem';
 
-const DonorPageContainer = styled.section`
-  font-size: 90%;
+const DataListContainer = styled.div`
   [data-contact-stale='true'] {
     color: crimson;
-  }
-  .control {
-    /* position: relative; */
-    opacity: 0.5;
-    margin: 0 0.25rem;
-    padding: 0;
-    background: transparent;
-    vertical-align: baseline;
-    /* line-height: 1.5rem; */
-    img {
-      height: 1.5rem;
-      margin-bottom: -0.2rem;
-    }
-  }
-  .control:hover {
-    opacity: 1;
   }
   .list-item {
     background: #f4f4f4;
@@ -39,22 +22,6 @@ const DonorPageContainer = styled.section`
   }
   .list-item:hover {
     background: #eee;
-  }
-  .donor-name {
-    width: 25%;
-  }
-  .donor-contributions {
-    width: 15%;
-  }
-  .donor-contact {
-    width: 25%;
-    overflow: hidden;
-  }
-  .donor-last-contact {
-    width: 20%;
-  }
-  .controls {
-    /* width: %; */
   }
 `;
 
@@ -70,7 +37,7 @@ const DonorsPage = () => {
   const renderDonors = () => {
     if (!donorCount) return <div className="loading">Loading...</div>;
     return (
-      <div className="donors-list">
+      <DataListContainer>
         {donors.map(donor => (
           <DonorListItem
             key={donor.id}
@@ -79,25 +46,27 @@ const DonorsPage = () => {
             handleDelete={handleDelete}
           />
         ))}
-      </div>
+      </DataListContainer>
     );
   };
 
   return (
     <>
       <DashNav />
-      <DonorPageContainer>
+      <section>
         <h1>
           {pageTitle}{' '}
           {!showForm && (
-            <Button className="btn-add control" title="Add donor" onClick={toggleShowForm}>
-              <img src="/icons/plus-circle.svg" alt="Add donor" />
-            </Button>
+            <ActionButton
+              imgSrc="/icons/plus-circle.svg"
+              onClick={toggleShowForm}
+              alt="Add donor"
+            />
           )}
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
         {renderDonors()}
-      </DonorPageContainer>
+      </section>
     </>
   );
 };
