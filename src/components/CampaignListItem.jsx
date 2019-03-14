@@ -5,6 +5,7 @@ import ActionButton from './common/ActionButton';
 
 const CampaignListItemContainer = styled.div`
   min-width: 30rem;
+  min-height: 8.25rem;
   padding: 1rem 1rem 3.5rem;
   .title {
     font-size: 145%;
