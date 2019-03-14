@@ -10,14 +10,12 @@ const useDonations = () => {
   };
 
   const saveDonation = async donation => {
-    console.log(donation);
     const { data } = await donationService.save(donation);
     setDonations(prev => [data, ...prev]);
   };
 
   const deleteDonation = async id => {
     const { data } = await donationService.delete(id);
-    console.log('data :', data);
     // if (data === 1) {
     //   setDonations(campaigns.filter(c => c.id !== id));
     // }

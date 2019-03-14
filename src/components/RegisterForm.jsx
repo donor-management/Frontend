@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { register } from '../services/userService';
-import { AuthContext } from '../store/AuthContext';
+import { AppDataContext } from '../store/AppDataContext';
 import useForm from '../hooks/useForm';
 import Input from './common/Input';
 import Button from './common/Button';
 
 const RegisterForm = ({ history }) => {
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(AppDataContext);
 
   const registerUser = async e => {
     try {

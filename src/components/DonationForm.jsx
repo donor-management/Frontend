@@ -35,7 +35,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const DonationForm = ({ donorId }) => {
+const DonationForm = ({ donorId, dismissForm }) => {
   const { campaignStore, donationStore } = useContext(AppDataContext);
 
   const handleSubmit = e => {
@@ -45,6 +45,7 @@ const DonationForm = ({ donorId }) => {
     donation.campaign_id = parseInt(donation.campaign_id);
     donationStore.save(donation);
     handleClear();
+    dismissForm();
   };
 
   const { values: donation, handleChange, handleClear } = useForm(null);

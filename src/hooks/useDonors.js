@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState } from 'react';
 import donorService from '../services/donorService';
-import { AuthContext } from '../store/AuthContext';
 
 const useDonors = () => {
-  const { user } = useContext(AuthContext);
   const [donors, setDonors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -28,19 +26,10 @@ const useDonors = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      getDonors();
-    } else {
-      setDonors([]);
-    }
-  }, [user]);
-
   const saveDonor = async donor => {
     setIsLoading(true);
     setError(null);
     try {
-      donor.org_id = user.org_id;
       const { data } = await donorService.save(donor);
       setDonors(prev => [data.donor, ...prev]);
       setIsLoading(false);

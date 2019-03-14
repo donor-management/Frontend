@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import MailTo from './common/MailTo';
 import getDate from '../helpers/getDate';
@@ -91,7 +91,7 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
           onClick={() => handleDelete(donor.id)}
         />
       </div>
-      {showDonationForm && <DonationForm donorId={donor.id} />}
+      {showDonationForm && <DonationForm donorId={donor.id} dismissForm={toggleDonationForm} />}
     </DonorListItemContainer>
   );
 };

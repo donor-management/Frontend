@@ -18,7 +18,7 @@ const CampaignListItemContainer = styled.div`
   }
   .description {
     font-size: 90%;
-    padding-right: 5rem;
+    padding-right: 8rem;
   }
   .goal,
   .raised {

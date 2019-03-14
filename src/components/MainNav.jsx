@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { AuthContext } from '../store/AuthContext';
+import { AppDataContext } from '../store/AppDataContext';
 import capitalize from '../helpers/capitalize';
 
 const StyledNav = styled.nav`
@@ -44,7 +44,7 @@ const StyledNav = styled.nav`
 `;
 
 const MainNav = () => {
-  const { user } = useContext(AuthContext);
+  const { auth } = useContext(AppDataContext);
 
   return (
     <StyledNav>
@@ -53,14 +53,14 @@ const MainNav = () => {
           <Link to="/">DM</Link>
         </li>
 
-        {!user && (
+        {!auth.user && (
           <li>
             <NavLink to="/login">Log in</NavLink>
           </li>
         )}
-        {user && (
+        {auth.user && (
           <li>
-            <span className="user">Welcome, {capitalize(user.username)}</span>{' '}
+            <span className="user">Welcome, {capitalize(auth.user.username)}</span>{' '}
             <NavLink to="/logout">Logout</NavLink>
           </li>
         )}

@@ -11,9 +11,11 @@ const StyledContainer = styled.div`
 `;
 
 const CampaignForm = ({ toggle }) => {
-  const { campaignStore } = useContext(AppDataContext);
+  const { auth, campaignStore } = useContext(AppDataContext);
 
   const saveCampaign = () => {
+    newCampaign.org_id = auth.user.org_id;
+
     campaignStore.save(newCampaign);
     toggle();
   };
