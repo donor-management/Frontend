@@ -41,7 +41,6 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Cause"
           label="Cause"
-          required
         />
         <Input
           name="description"
@@ -49,7 +48,6 @@ const CampaignForm = ({ toggle }) => {
           onChange={handleChange}
           placeholder="Description"
           label="Description"
-          required
         />
         <Input
           name="cash_goal"
