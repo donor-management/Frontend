@@ -13,7 +13,7 @@ const DonorListItemContainer = styled.div`
   padding: 1rem;
   min-width: 30rem;
   &[data-form-active='true'] {
-    height: 9.5rem;
+    min-height: 10rem;
   }
   .name {
     font-size: 145%;
@@ -74,8 +74,11 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
   return (
     <DonorListItemContainer data-form-active={showDonationForm}>
       <div className="info">
-        <div className="name">{donor.name}</div>
-        {isStale(donor.last_contact) && <span className="stale-tag">over 60 days</span>}
+        <div className="name">
+          {donor.name}
+          {isStale(donor.last_contact) && <span className="stale-tag">over 60 days</span>}
+        </div>
+
         <div className="contact">
           Last contacted {getDate(donor.last_contact)} <br />
           <MailTo email={donor.email}>{donor.email}</MailTo>
