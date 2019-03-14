@@ -62,7 +62,6 @@ const useDonors = () => {
           return data.donor;
         })
       );
-      setDonors(prev => [data.donor, ...prev]);
       setIsLoading(false);
     } catch (ex) {
       console.log(ex);
