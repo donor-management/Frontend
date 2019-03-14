@@ -6,6 +6,7 @@ import ActionButton from './common/ActionButton';
 import useToggle from '../hooks/useToggle';
 import DonorListItem from './DonorListItem';
 import DataListContainer from './common/DataListContainer';
+import pluralize from '../helpers/pluralize';
 
 const DonorsPage = () => {
   const { donorStore } = useContext(AppDataContext);
@@ -13,7 +14,7 @@ const DonorsPage = () => {
 
   const donorCount = donorStore.state.length;
 
-  const pageTitle = `${donorCount} donor${donorCount === 1 ? '' : 's'}`;
+  const pageTitle = `${donorCount} donor${pluralize(donorCount)}`;
 
   const renderDonors = () => {
     if (!donorCount) return <p className="no-records">You have no donors.</p>;
