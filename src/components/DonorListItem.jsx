@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { AppDataContext } from '../store/AppDataContext';
 import MailTo from './common/MailTo';
 import getDate from '../helpers/getDate';
 import isStale from '../helpers/isStale';
@@ -52,19 +51,10 @@ const DonorListItemContainer = styled.div`
 
 const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
   const [showDonationForm, toggleDonationForm] = useToggle(false);
-  const { donorStore } = useContext(AppDataContext);
 
   const update = donor => {
     donor.last_contact = Date.now();
     handleUpdate(donor);
-  };
-
-  const recordDonation = donation => {
-    donation.donor_id = donor.id;
-    // get campaign id from form select input
-    donation.campaign_id = 10;
-    donation.amount = parseInt(donation.amount);
-    donorStore.recordDonation(donation);
   };
 
   return (
@@ -101,7 +91,7 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
           onClick={() => handleDelete(donor.id)}
         />
       </div>
-      {showDonationForm && <DonationForm recordDonation={recordDonation} />}
+      {showDonationForm && <DonationForm donorId={donor.id} />}
     </DonorListItemContainer>
   );
 };
