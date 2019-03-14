@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import DashNav from './DashNav';
 import { AppDataContext } from '../store/AppDataContext';
 import useToggle from '../hooks/useToggle';
 import CampaignForm from './CampaignForm';
-import formatDollars from '../helpers/formatDollars';
+import CampaignListItem from './CampaignListItem';
 import ActionButton from './common/ActionButton';
 import DataListContainer from './common/DataListContainer';
 
@@ -21,22 +20,12 @@ const CampaignsPage = () => {
     return (
       <DataListContainer>
         {campaigns.map(c => (
-          <div key={c.id}>
-            <div className="title">{c.title}</div>
-            <div className="cause">{c.cause}</div>
-            <div className="description">{c.description}</div>
-            <div className="goal">{formatDollars(c.cash_goal)}</div>
-            <div className="received">{formatDollars(c.funds_received)}</div>
-            <div className="active">{c.active_campaign ? 'Active' : 'Inactive'}</div>
-            <div className="controls">
-              <ActionButton
-                imgSrc="/icons/trash.svg"
-                onClick={() => handleDelete(c.id)}
-                alt="Delete campaign"
-              />
-              <ActionButton imgSrc="/icons/edit.svg" onClick={null} alt="Edit campaign" />
-            </div>
-          </div>
+          <CampaignListItem
+            key={c.id}
+            campaign={c}
+            handleDelete={handleDelete}
+            handleUpdate={handleUpdate}
+          />
         ))}
       </DataListContainer>
     );
