@@ -57,7 +57,7 @@ const DashboardPage = () => {
         )}
         <div className="dash-tile">
           <div className="figure">{formatDollars(totalContributions)}</div>
-          <div className="caption">collected</div>
+          <div className="caption">raised</div>
         </div>
         <div className="dash-tile">
           <div className="figure">{staleDonorsCount}</div>
