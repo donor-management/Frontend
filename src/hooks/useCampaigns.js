@@ -23,9 +23,9 @@ const useCampaigns = () => {
           })
       );
       setIsLoading(false);
-    } catch (ex) {
-      console.log(ex);
-      setError(ex);
+    } catch (error) {
+      console.log(error);
+      setError(error);
       setIsLoading(false);
     }
   };
@@ -39,31 +39,58 @@ const useCampaigns = () => {
   }, [user]);
 
   const saveCampaign = async campaign => {
-    campaign.org_id = user.org_id;
-    console.log(campaign);
-    const { data } = await campaignService.save(campaign);
-    setCampaigns(prev => [data.campaign, ...prev]);
+    setIsLoading(true);
+    setError(null);
+    try {
+      campaign.org_id = user.org_id;
+      const { data } = await campaignService.save(campaign);
+      setCampaigns(prev => [data.campaign, ...prev]);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      setIsLoading(false);
+    }
   };
 
   const updateCampaign = async campaign => {
-    const { data } = await campaignService.save(campaign);
-    setCampaigns(
-      campaigns.map(c => {
-        if (c.id !== data.campaign.id) return c;
-        return data.campaign;
-      })
-    );
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { data } = await campaignService.save(campaign);
+      setCampaigns(
+        campaigns.map(c => {
+          if (c.id !== data.campaign.id) return c;
+          return data.campaign;
+        })
+      );
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      setIsLoading(false);
+    }
   };
 
   const deleteCampaign = async id => {
-    const { data } = await campaignService.delete(id);
-    if (data === 1) {
-      setCampaigns(campaigns.filter(c => c.id !== id));
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { data } = await campaignService.delete(id);
+      if (data === 1) {
+        setCampaigns(campaigns.filter(c => c.id !== id));
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      setIsLoading(false);
     }
   };
 
   return {
     campaigns,
+    setCampaigns,
     isLoading,
     error,
     getAll: getCampaigns,
