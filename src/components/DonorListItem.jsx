@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { AppDataContext } from '../store/AppDataContext';
 import MailTo from './common/MailTo';
 import getDate from '../helpers/getDate';
 import isStale from '../helpers/isStale';
 import formatDollars from '../helpers/formatDollars';
 import ActionButton from './common/ActionButton';
+import useToggle from '../hooks/useToggle';
+import DonationForm from './DonationForm';
 
 const DonorListItemContainer = styled.div`
-  height: 9rem;
+  padding: 1rem;
   min-width: 30rem;
+  &[data-form-active='true'] {
+    height: 9.5rem;
+  }
   .name {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
     font-size: 145%;
+    margin-bottom: 1.5rem;
   }
   .contact {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
   }
   .contributions {
     position: absolute;
@@ -28,20 +29,19 @@ const DonorListItemContainer = styled.div`
     font-size: 125%;
     font-weight: bold;
     .label {
-      font-size: 1rem;
-      font-weight: normal;
+      font-size: 0.8rem;
+      text-transform: uppercase;
     }
   }
-  .stale {
-    position: absolute;
-    top: 3.4rem;
-    left: 1rem;
+  .stale-tag {
+    margin-left: 0.5rem;
     background: #5c6ac4;
     padding: 0.2rem 0.5rem;
     color: white;
     border-radius: 0.25rem;
-    font-size: 80%;
+    font-size: 0.8rem;
     font-weight: bold;
+    text-transform: uppercase;
   }
   .controls {
     position: absolute;
@@ -51,38 +51,58 @@ const DonorListItemContainer = styled.div`
 `;
 
 const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
+  const [showDonationForm, toggleDonationForm] = useToggle(false);
+  const { donorActions } = useContext(AppDataContext);
+
   const formatContribution = num => {
     return num ? formatDollars(num) : '—';
   };
+
   const update = donor => {
     donor.last_contact = Date.now();
     handleUpdate(donor);
   };
+
+  const recordDonation = donation => {
+    donation.donor_id = donor.id;
+    // get campaign id from form select input
+    donation.campaign_id = 10;
+    donation.amount = parseInt(donation.amount);
+    donorActions.recordDonation(donation);
+  };
+
   return (
-    <DonorListItemContainer data-contact-stale={isStale(donor.last_contact)}>
-      <div className="name">{donor.name}</div>
+    <DonorListItemContainer data-form-active={showDonationForm}>
+      <div className="info">
+        <div className="name">{donor.name}</div>
+        {isStale(donor.last_contact) && <span className="stale-tag">over 60 days</span>}
+        <div className="contact">
+          Last contacted {getDate(donor.last_contact)} <br />
+          <MailTo email={donor.email}>{donor.email}</MailTo>
+        </div>
+      </div>
+
       <div className="contributions">
-        {formatContribution(donor.total_donations)}
-        <div className="label">Lifetime contribution</div>
+        <span className="label">Total gifts</span> {formatContribution(donor.total_donations)}
       </div>
-      <div className="contact">
-        Last contacted {getDate(donor.last_contact)} <br />
-        <MailTo email={donor.email}>{donor.email}</MailTo>
-      </div>
-      {isStale(donor.last_contact) && <div className="stale">over 60 days</div>}
       <div className="controls">
         <ActionButton
           imgSrc="/icons/clock.svg"
           alt="Mark contacted"
           onClick={() => update(donor)}
         />
-        <ActionButton imgSrc="/icons/money-sign.svg" alt="Add donation" onClick={null} />
+        <ActionButton
+          imgSrc="/icons/money-sign.svg"
+          alt="Add donation"
+          onClick={toggleDonationForm}
+        />
         <ActionButton
           imgSrc="/icons/trash.svg"
           alt="Delete donor"
           onClick={() => handleDelete(donor.id)}
         />
       </div>
+      {showDonationForm && <DonationForm recordDonation={recordDonation} />}
     </DonorListItemContainer>
   );
 };
