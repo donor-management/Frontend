@@ -49,7 +49,6 @@ const DonorsPage = () => {
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
         {donorStore.isLoading && <LoadingNotify />}
-        {true && <LoadingNotify />}
         {renderDonors()}
       </section>
     </>
