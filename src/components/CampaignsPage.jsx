@@ -6,6 +6,7 @@ import CampaignForm from './CampaignForm';
 import CampaignListItem from './CampaignListItem';
 import ActionButton from './common/ActionButton';
 import DataListContainer from './common/DataListContainer';
+import LoadingNotify from './common/LoadingNotify';
 
 const CampaignsPage = () => {
   const { campaignStore } = useContext(AppDataContext);
@@ -45,7 +46,7 @@ const CampaignsPage = () => {
           )}
         </h1>
         {showForm && <CampaignForm toggle={toggleShowForm} />}
-        {campaignStore.isLoading && <div className="loading">Loading...</div>}
+        {campaignStore.isLoading && <LoadingNotify />}
         {renderCampaigns()}
       </section>
     </>

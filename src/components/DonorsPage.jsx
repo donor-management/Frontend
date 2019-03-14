@@ -7,6 +7,7 @@ import useToggle from '../hooks/useToggle';
 import DonorListItem from './DonorListItem';
 import DataListContainer from './common/DataListContainer';
 import pluralize from '../helpers/pluralize';
+import LoadingNotify from './common/LoadingNotify';
 
 const DonorsPage = () => {
   const { donorStore } = useContext(AppDataContext);
@@ -47,7 +48,8 @@ const DonorsPage = () => {
           )}
         </h1>
         {showForm && <DonorForm toggle={toggleShowForm} />}
-        {donorStore.isLoading && <div className="loading">Loading...</div>}
+        {donorStore.isLoading && <LoadingNotify />}
+        {true && <LoadingNotify />}
         {renderDonors()}
       </section>
     </>
