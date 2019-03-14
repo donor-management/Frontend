@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import campaignService from '../services/campaignService';
 import { AuthContext } from '../store/AuthContext';
 
-const useCampaignService = () => {
+const useCampaigns = () => {
   const { user } = useContext(AuthContext);
   const [campaigns, setCampaigns] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -82,4 +82,4 @@ const useCampaignService = () => {
   };
 };
 
-export default useCampaignService;
+export default useCampaigns;

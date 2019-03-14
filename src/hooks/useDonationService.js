@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import donationService from '../services/donationService';
 
-const useDonationsService = () => {
+const useDonations = () => {
   const [donations, setDonations] = useState([]);
 
   const getDonations = async donorId => {
@@ -33,4 +33,4 @@ const useDonationsService = () => {
   ];
 };
 
-export default useDonationsService;
+export default useDonations;

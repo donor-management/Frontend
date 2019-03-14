@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import useDonorService from '../hooks/useDonorService';
-import useCampaignService from '../hooks/useCampaignService';
+import useDonors from '../hooks/useDonors';
+import useCampaigns from '../hooks/useCampaigns';
 // import useDonationService from '../hooks/useDonationService';
 
 const AppDataContext = React.createContext();
 
 const AppDataProvider = ({ children }) => {
-  const donorStore = useDonorService();
-  const campaignStore = useCampaignService();
+  const donorStore = useDonors();
+  const campaignStore = useCampaigns();
   // const [donations, donationActions] = useDonationService();
   // to handle errors in the future
   // const [appStatus, setAppStatus] = useState({
@@ -29,9 +29,6 @@ const AppDataProvider = ({ children }) => {
   useEffect(() => {
     console.log('campaignStore :', campaignStore);
   }, [campaignStore]);
-  // useEffect(() => {
-  //   console.log('donations :', donations);
-  // }, [donations]);
 
   return (
     <AppDataContext.Provider value={{ donorStore, campaignStore }}>

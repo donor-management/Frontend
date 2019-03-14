@@ -3,7 +3,7 @@ import donorService from '../services/donorService';
 import donationService from '../services/donationService';
 import { AuthContext } from '../store/AuthContext';
 
-const useDonorService = () => {
+const useDonors = () => {
   const { user } = useContext(AuthContext);
   const [donors, setDonors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -93,4 +93,4 @@ const useDonorService = () => {
   };
 };
 
-export default useDonorService;
+export default useDonors;
