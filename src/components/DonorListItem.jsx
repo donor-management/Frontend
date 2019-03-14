@@ -46,7 +46,7 @@ const DonorListItemContainer = styled.div`
   .controls {
     position: absolute;
     top: 1rem;
-    right: 1rem;
+    right: 0.75rem;
   }
 `;
 
