@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-import { AuthContext } from '../store/AuthContext';
+import { AppDataContext } from '../store/AppDataContext';
 
 const Logout = () => {
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(AppDataContext);
   auth.logout();
 
   return <Redirect to="/" />;

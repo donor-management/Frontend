@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../store/AuthContext';
 import { AppDataContext } from '../store/AppDataContext';
 import capitalize from '../helpers/capitalize';
 import pluralize from '../helpers/pluralize';
@@ -30,9 +29,8 @@ const StyledDashContainer = styled.section`
 `;
 
 const DashboardPage = () => {
-  const { user } = useContext(AuthContext);
-  const { donorStore, campaignStore } = useContext(AppDataContext);
-  const name = capitalize(user.username);
+  const { auth, donorStore, campaignStore } = useContext(AppDataContext);
+  const name = capitalize(auth.user.username);
 
   const activeCampaignsCount = campaignStore.campaigns.reduce((count, campaign) => {
     return campaign.active_campaign === 1 ? count + 1 : count;

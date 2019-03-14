@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState } from 'react';
 import campaignService from '../services/campaignService';
-import { AuthContext } from '../store/AuthContext';
 
 const useCampaigns = () => {
-  const { user } = useContext(AuthContext);
   const [campaigns, setCampaigns] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -30,19 +28,10 @@ const useCampaigns = () => {
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      getCampaigns();
-    } else {
-      setCampaigns([]);
-    }
-  }, [user]);
-
   const saveCampaign = async campaign => {
     setIsLoading(true);
     setError(null);
     try {
-      campaign.org_id = user.org_id;
       const { data } = await campaignService.save(campaign);
       setCampaigns(prev => [data.campaign, ...prev]);
       setIsLoading(false);

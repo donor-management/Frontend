@@ -2,20 +2,32 @@ import React, { useEffect } from 'react';
 import useDonors from '../hooks/useDonors';
 import useCampaigns from '../hooks/useCampaigns';
 import donationService from '../services/donationService';
+import useAuth from '../hooks/useAuth';
 
 const AppDataContext = React.createContext();
 
 const AppDataProvider = ({ children }) => {
+  const auth = useAuth();
   const donorStore = useDonors();
   const campaignStore = useCampaigns();
 
+  useEffect(() => {
+    if (auth.user) {
+      donorStore.getAll();
+      campaignStore.getAll();
+    }
+  }, [auth.user]);
+
   // logging
-  useEffect(() => {
-    console.log('donorStore :', donorStore);
-  }, [donorStore]);
-  useEffect(() => {
-    console.log('campaignStore :', campaignStore);
-  }, [campaignStore]);
+  // useEffect(() => {
+  //   console.log('donorStore :', donorStore);
+  // }, [donorStore]);
+  // useEffect(() => {
+  //   console.log('campaignStore :', campaignStore);
+  // }, [campaignStore]);
+  // useEffect(() => {
+  //   console.log('auth :', auth);
+  // }, [auth]);
 
   const recordDonation = async donation => {
     await donationService.save(donation);
@@ -27,12 +39,9 @@ const AppDataProvider = ({ children }) => {
       });
     });
     campaignStore.setCampaigns(prev => {
-      console.log(prev);
-      console.log(donation);
       return prev.map(c => {
         if (c.id !== donation.campaign_id) return c;
         c.funds_received = c.funds_received + donation.amount;
-        console.log(c);
         return c;
       });
     });
@@ -43,7 +52,7 @@ const AppDataProvider = ({ children }) => {
   };
 
   return (
-    <AppDataContext.Provider value={{ donorStore, campaignStore, donationStore }}>
+    <AppDataContext.Provider value={{ auth, donorStore, campaignStore, donationStore }}>
       {children}
     </AppDataContext.Provider>
   );

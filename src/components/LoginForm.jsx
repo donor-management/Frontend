@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { AuthContext } from '../store/AuthContext';
+import { AppDataContext } from '../store/AppDataContext';
+
 import Input from './common/Input';
 import Button from './common/Button';
 
 const LoginForm = ({ location, history }) => {
   const [credentials, setCredentials] = useState({});
-  const auth = useContext(AuthContext);
+  const { auth } = useContext(AppDataContext);
 
   const handleChange = e => {
     const { name, value } = e.target;
