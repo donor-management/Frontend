@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import DashNav from './DashNav';
 import { AppDataContext } from '../store/AppDataContext';
-import DataListViewContainer from './common/DataListViewContainer';
-
-import Button from './common/Button';
 import useToggle from '../hooks/useToggle';
 import CampaignForm from './CampaignForm';
-import formatDollars from '../helpers/formatDollars';
+import CampaignListItem from './CampaignListItem';
+import ActionButton from './common/ActionButton';
+import DataListContainer from './common/DataListContainer';
 
 const CampaignsPage = () => {
   const { campaigns, campaignActions } = useContext(AppDataContext);
@@ -19,48 +18,36 @@ const CampaignsPage = () => {
     if (!campaigns.length) return <div className="loading">Loading...</div>;
 
     return (
-      <div className="campaigns-list">
+      <DataListContainer>
         {campaigns.map(c => (
-          <div className="list-item" key={c.id}>
-            <div className="title">{c.title}</div>
-            <div className="cause">{c.cause}</div>
-            <div className="description">{c.description}</div>
-            <div className="goal">{formatDollars(c.cash_goal)}</div>
-            <div className="received">{formatDollars(c.funds_received)}</div>
-            <div className="active">{c.active_campaign ? 'Active' : 'Inactive'}</div>
-            <div className="controls">
-              <Button
-                onClick={() => handleDelete(c.id)}
-                className="btn-delete control"
-                title="Delete campaign"
-              >
-                <img src="/icons/trash.svg" alt="Delete campaign" />
-              </Button>
-              <Button className="btn-edit control" title="Edit campaign">
-                <img src="/icons/edit.svg" alt="Edit campaign" />
-              </Button>
-            </div>
-          </div>
+          <CampaignListItem
+            key={c.id}
+            campaign={c}
+            handleDelete={handleDelete}
+            handleUpdate={handleUpdate}
+          />
         ))}
-      </div>
+      </DataListContainer>
     );
   };
 
   return (
     <>
       <DashNav />
-      <DataListViewContainer>
+      <section>
         <h1>
           {pageTitle}{' '}
           {!showForm && (
-            <Button className="btn-add control" title="Add campaign" onClick={toggleShowForm}>
-              <img src="/icons/plus-circle.svg" alt="Add campaign" />
-            </Button>
+            <ActionButton
+              imgSrc="/icons/plus-circle.svg"
+              onClick={toggleShowForm}
+              alt="Add campaign"
+            />
           )}
         </h1>
         {showForm && <CampaignForm toggle={toggleShowForm} />}
         {renderCampaigns()}
-      </DataListViewContainer>
+      </section>
     </>
   );
 };

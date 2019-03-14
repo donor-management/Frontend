@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import donorService from '../services/donorService';
+import donationService from '../services/donationService';
 import { AuthContext } from '../store/AuthContext';
 
 const useDonorService = () => {
@@ -44,13 +45,25 @@ const useDonorService = () => {
     }
   };
 
+  const recordDonation = async donation => {
+    await donationService.save(donation);
+    setDonors(
+      donors.map(d => {
+        if (d.id !== donation.donor_id) return d;
+        d.total_donations = d.total_donations + donation.amount;
+        return d;
+      })
+    );
+  };
+
   return [
     donors,
     {
       getAll: getDonors,
       save: saveDonor,
       update: updateDonor,
-      delete: deleteDonor
+      delete: deleteDonor,
+      recordDonation
     }
   ];
 };

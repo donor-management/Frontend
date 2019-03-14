@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import useForm from '../hooks/useForm';
 import Button from './common/Button';
+import ActionButton from './common/ActionButton';
 import Input from './common/Input';
 import { AppDataContext } from '../store/AppDataContext';
 
@@ -22,10 +23,8 @@ const CampaignForm = ({ toggle }) => {
   return (
     <StyledContainer className="campaign-form">
       <h3>
-        New campaign{' '}
-        <Button className="btn-close control" title="Close form" onClick={toggle}>
-          <img src="/icons/x-circle.svg" alt="Close form" />
-        </Button>
+        New campaign
+        <ActionButton imgSrc="/icons/x-circle.svg" alt="Close form" onClick={toggle} />
       </h3>
       <form onSubmit={handleSubmit}>
         <Input
