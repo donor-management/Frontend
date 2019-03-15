@@ -21,7 +21,14 @@ const StyledNav = styled.nav`
   }
   li {
     list-style: none;
-    margin-right: 1rem;
+    margin-right: 1.5rem;
+    a {
+      display: flex;
+      img {
+        margin-right: 0.5rem;
+        height: 1.25rem;
+      }
+    }
   }
   a {
     padding: 0.25rem;
@@ -40,13 +47,20 @@ const DashNav = () => {
     <StyledNav>
       <ul>
         <li>
-          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/dashboard">
+            <img src="/icons/clipboard.svg" alt="Dashboard" /> Dashboard
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/donors">Donors</NavLink>
+          <NavLink to="/donors">
+            <img src="/icons/users.svg" alt="Donors" /> Donors
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/campaigns">Campaigns</NavLink>
+          <NavLink to="/campaigns">
+            <img src="/icons/trending-up.svg" alt="Campaigns" />
+            Campaigns
+          </NavLink>
         </li>
       </ul>
     </StyledNav>

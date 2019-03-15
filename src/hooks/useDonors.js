@@ -6,11 +6,11 @@ const useDonors = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const requestWrapper = cb => () => {
+  const requestWrapper = cb => async (...args) => {
     setIsLoading(true);
     setError(null);
     try {
-      cb();
+      await cb(...args);
       setIsLoading(false);
     } catch (error) {
       setError(error.request.data);
@@ -29,43 +29,27 @@ const useDonors = () => {
     );
   });
 
-  // how to have these return a function that can be called directly
-  // instead of creating a closure and immediately invoking it?
-  // feel like I'm missing some little piece of the puzzle
-  // if I return the request wrapper directly, it doesn't execute when
-  // top level function is called
-  const saveDonor = donor => {
-    const request = requestWrapper(async () => {
-      console.log(donor);
-      const { data } = await donorService.save(donor);
-      setDonors(prevDonors => [data.donor, ...prevDonors]);
-    });
-    request();
-  };
+  const saveDonor = requestWrapper(async donor => {
+    const { data } = await donorService.save(donor);
+    setDonors(prevDonors => [data.donor, ...prevDonors]);
+  });
 
-  const updateDonor = donor => {
-    const request = requestWrapper(async () => {
-      const { data } = await donorService.save(donor);
-      setDonors(prevDonors =>
-        prevDonors.map(d => {
-          if (d.id !== data.donor.id) return d;
-          return data.donor;
-        })
-      );
-    });
-    request();
-  };
+  const updateDonor = requestWrapper(async donor => {
+    const { data } = await donorService.save(donor);
+    setDonors(prevDonors =>
+      prevDonors.map(d => {
+        if (d.id !== data.donor.id) return d;
+        return data.donor;
+      })
+    );
+  });
 
-  const deleteDonor = id => {
-    const request = requestWrapper(async () => {
-      console.log(id);
-      const { data } = await donorService.delete(id);
-      if (data === 1) {
-        setDonors(prevDonors => prevDonors.filter(d => d.id !== id));
-      }
-    });
-    request();
-  };
+  const deleteDonor = requestWrapper(async id => {
+    const { data } = await donorService.delete(id);
+    if (data === 1) {
+      setDonors(prevDonors => prevDonors.filter(d => d.id !== id));
+    }
+  });
 
   return {
     donors,

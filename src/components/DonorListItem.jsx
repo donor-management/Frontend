@@ -57,16 +57,20 @@ const DonorListItem = ({ donor, handleUpdate, handleDelete }) => {
     handleUpdate(donor);
   };
 
+  const lastContactedDate = getDate(donor.last_contact);
+  const showStaleTag = isStale(donor.last_contact) && lastContactedDate;
+
   return (
     <DonorListItemContainer data-form-active={showDonationForm}>
       <div className="info">
         <div className="name">
           {donor.name}
-          {isStale(donor.last_contact) && <span className="stale-tag">over 60 days</span>}
+          {showStaleTag && <span className="stale-tag">over 60 days</span>}
         </div>
 
         <div className="contact">
-          Last contacted {getDate(donor.last_contact)} <br />
+          {lastContactedDate && `Last contacted ${getDate(donor.last_contact)}`}
+          <br />
           <MailTo email={donor.email}>{donor.email}</MailTo>
         </div>
       </div>

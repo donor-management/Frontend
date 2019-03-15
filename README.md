@@ -32,9 +32,11 @@ Project deployed at [https://donor-management-lambda.netlify.com/](https://donor
 
 ## Takeaways
 
+- I learned A LOT about React in general. The experience reaffirmed that there is no better way to learn than to roll up your sleeves and build something.
 - For something seemingly so simple, this project sure did take a lot of code to get it to where it is!
 - I tend to get bogged down in the details. I enjoy getting the code just right but I need to keep in mind that the user-facing bits of the product are most important. I wrote hundreds of lines of clever code but I don't think the UI I ended up with is particularly good.
 - I tried to avoid Redux and use React's built in context API and hooks for global state. While there is less boilerplate, the code is probably just as complex as if I had used Redux. Hooks are so new I couldn't really find any patterns for what I wanted to accomplish. With three days to build this, I felt so pressed for time that I didn't really have time to do proper research. My implementation works quite well and could be improved further with some effort,
-- I learned A LOT about React in general. The experience reaffirmed that there is no better way to learn than to roll up your sleeves and build something.
 - I officially enjoy working with JavaScript.
 - I'm eager to learn about testing. Testing every little action and UI element after each change to the code quickly becomes a chore.
+- I would have benefited greatly from taking the time to plan out the UI views with wire frames and workflows. I kind of just built everything as I went along,which worked but wasn't ideal.
+- I could have worked more closely with the back end role to plan the exact routes and the shape of the data those routes would return. I just built around what I was given and had to make some compromises because of it. I would have saved us both time and effort by hashing it out up front and we would have a better product.
