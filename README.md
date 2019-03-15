@@ -1,8 +1,8 @@
 # Front End for Donor Management
 
-> You will use your skills to be responsible for the Front End Architecture of this project. You will work directly with the UI Developer and the Back End Developer to ensure that all React components are wired up in proper fashion.
+Lambda School build week, March 11th 2019
 
-Lambda School build week, March 11th 2091
+> You will use your skills to be responsible for the Front End Architecture of this project. You will work directly with the UI Developer and the Back End Developer to ensure that all React components are wired up in proper fashion.
 
 Project deployed at [https://donor-management-lambda.netlify.com/](https://donor-management-lambda.netlify.com/)
 
@@ -15,7 +15,7 @@ Project deployed at [https://donor-management-lambda.netlify.com/](https://donor
 - A user can create a new account or log in to an existing one
 - A user see a dashboard with important metrics like amount raised, number of donors, and number of campaigns
 - A user can see a list of their donors sorted but how long ago they were contacted
-- A user can see at a glance which donors have gone stale (are due to be contacted)
+- A user can see at a glance which donors have gone stale (overdue to be contacted)
 - A user can add a new donor, delete a donor, or mark a donor as newly contacted
 - A user can record a gift from a donor and associate the gift with a campaign
 - A user can see a list of campaigns, along with their funding goals and current funding
