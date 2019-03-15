@@ -6,11 +6,11 @@ const useDonors = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const requestWrapper = cb => (...args) => {
+  const requestWrapper = cb => async (...args) => {
     setIsLoading(true);
     setError(null);
     try {
-      cb(...args);
+      await cb(...args);
       setIsLoading(false);
     } catch (error) {
       setError(error.request.data);
