@@ -32,7 +32,9 @@ Project deployed at [https://donor-management-lambda.netlify.com/](https://donor
 
 ## Takeaways
 
-- Something seemingly so simple sure is a lot of code!
-- I tend to get bogged down in the details. I enjoy getting the code just right but I have to keep in mind that the user-facing bits of the product are most important.
-- I tried to avoid Redux and use React's built in context API and hooks for global state. While there is less boilerplate, the code is probably just as complex as if I had used Redux. Hooks are so new I couldn't really find any patterns for what I wanted to accomplish. With three days to build this, I frankly didn't have time to research anything, so maybe I just couldn't find the correct resources. My implementation works quite well and could be improved further with some effort,
-- I learned A LOT about React in general. We're encouraged to "have fun" with build week. I don't think coding for 30 hours in 3 days is particularly fun, but I do agree that there is no better way to learn than to just build something.
+- For something seemingly so simple, this project sure did take a lot of code to get it to where it is!
+- I tend to get bogged down in the details. I enjoy getting the code just right but I need to keep in mind that the user-facing bits of the product are most important. I wrote hundreds of lines of clever code but I don't think the UI I ended up with is particularly good.
+- I tried to avoid Redux and use React's built in context API and hooks for global state. While there is less boilerplate, the code is probably just as complex as if I had used Redux. Hooks are so new I couldn't really find any patterns for what I wanted to accomplish. With three days to build this, I felt so pressed for time that I didn't really have time to do proper research. My implementation works quite well and could be improved further with some effort,
+- I learned A LOT about React in general. The experience reaffirmed that there is no better way to learn than to roll up your sleeves and build something.
+- I officially enjoy working with JavaScript.
+- I'm eager to learn about testing. Testing every little action and UI element after each change to the code quickly becomes a chore.
