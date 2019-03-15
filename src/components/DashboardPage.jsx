@@ -6,6 +6,7 @@ import capitalize from '../helpers/capitalize';
 import pluralize from '../helpers/pluralize';
 import DashNav from './DashNav';
 import isStale from '../helpers/isStale';
+import getDate from '../helpers/getDate';
 import formatDollars from '../helpers/formatDollars';
 
 const StyledDashContainer = styled.section`
@@ -35,7 +36,7 @@ const DashboardPage = () => {
   const activeCampaignsCount = campaignStore.campaigns.length;
 
   const staleDonorsCount = donorStore.donors.reduce((count, donor) => {
-    return isStale(donor.last_contacted) ? count + 1 : count;
+    return isStale(donor.last_contacted) && getDate(donor.last_contact) ? count + 1 : count;
   }, 0);
 
   const totalContributions = donorStore.donors.reduce((total, donor) => {
