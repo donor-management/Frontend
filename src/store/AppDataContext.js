@@ -11,10 +11,21 @@ const AppDataProvider = ({ children }) => {
   const donorStore = useDonors();
   const campaignStore = useCampaigns();
 
+  const initData = () => {
+    donorStore.getAll();
+    campaignStore.getAll();
+  };
+
+  const wipeData = () => {
+    donorStore.setDonors([]);
+    campaignStore.setCampaigns([]);
+  };
+
   useEffect(() => {
     if (auth.user) {
-      donorStore.getAll();
-      campaignStore.getAll();
+      initData();
+    } else {
+      wipeData();
     }
   }, [auth.user]);
 
